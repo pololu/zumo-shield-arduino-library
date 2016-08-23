@@ -75,7 +75,7 @@
 #ifndef ZumoReflectanceSensorArray_h
 #define ZumoReflectanceSensorArray_h
 
-#include <../QTRSensors/QTRSensors.h>
+#include <QTRSensors.h>
 #include <Arduino.h>
 
 #if defined(__AVR_ATmega32U4__)

@@ -1,24 +1,44 @@
-h1. Pololu Zumo Shield Libraries
+# Pololu Zumo Shield Arduino Library
 
-Version: 1.2.3
-Release Date: 2013-11-27
+Version: 2.0.0 <br>
+Release Date: 2016 <br>
 "www.pololu.com":http://www.pololu.com/
 
-h2. Summary
+## Summary
 
-This is a collection of libraries for the "Arduino":http://pololu.com/catalog/product/2191 that interfaces with the Pololu "Zumo Shield":http://www.pololu.com/catalog/product/2508, "Zumo Reflectance Sensor Array":http://www.pololu.com/catalog/product/1419, "Zumo robot kit":http://www.pololu.com/catalog/product/2509, and "Zumo robot for Arduino":http://www.pololu.com/catalog/product/2510. These libraries provide functions to help you program an Arduino-controlled Zumo robot, and the included example projects demonstrate how to use them for more complex tasks.
+This is a collection of libraries for the
+"Arduino":http://pololu.com/catalog/product/2191 that interfaces with
+the Pololu "Zumo Shield":http://www.pololu.com/catalog/product/2508,
+"Zumo Reflectance Sensor
+Array":http://www.pololu.com/catalog/product/1419, "Zumo robot
+kit":http://www.pololu.com/catalog/product/2509, and "Zumo robot for
+Arduino":http://www.pololu.com/catalog/product/2510. These libraries
+provide functions to help you program an Arduino-controlled Zumo
+robot, and the included example projects demonstrate how to use them
+for more complex tasks.
 
-For more information about the libraries and examples, please see the "Zumo Shield user's guide":http://www.pololu.com/docs/0J57.
+For more information about the libraries and examples, please see the
+"Zumo Shield user's guide":http://www.pololu.com/docs/0J57.
 
-h2. Getting Started
+## Getting started
 
-h3. Software
+### Software
 
-Download the archive from "GitHub":https://github.com/pololu/zumo-shield-arduino, decompress it, and move each library folder (Pushbutton, QTRSensors, ZumoBuzzer, ZumoExamples, ZumoMotors, and ZumoReflectanceSensorArray) into the "libraries" subdirectory inside your Arduino sketchbook directory. You can view your sketchbook location by selecting File->Preferences in the Arduino environment; if there is not already a "libraries" folder in that location, you should create it yourself. After installing the library, restart the Arduino environment so it can find the Zumo Shield libraries and their examples.
+Download the archive from
+"GitHub":https://github.com/pololu/zumo-shield-arduino, decompress it,
+and move each library folder (Pushbutton, QTRSensors, ZumoBuzzer,
+ZumoExamples, ZumoMotors, and ZumoReflectanceSensorArray) into the
+"libraries" subdirectory inside your Arduino sketchbook directory. You
+can view your sketchbook location by selecting File->Preferences in
+the Arduino environment; if there is not already a "libraries" folder
+in that location, you should create it yourself. After installing the
+library, restart the Arduino environment so it can find the Zumo
+Shield libraries and their examples.
 
-Some of the examples also require our "LSM303 library":https://github.com/pololu/lsm303-arduino to be installed.
+Some of the examples also require our "LSM303
+library":https://github.com/pololu/lsm303-arduino to be installed.
 
-h3. Hardware
+### Hardware
 
 The Zumo Shield for Arduino can be purchased on Pololu's website:
 * *"by itself":http://www.pololu.com/catalog/product/2508*;
@@ -27,7 +47,7 @@ The Zumo Shield for Arduino can be purchased on Pololu's website:
 
 See the "Zumo Shield user's guide":http://www.pololu.com/docs/0J57 for more details about purchasing and assembling the hardware.
 
-h2. Using the Zumo Shield Libraries
+## Using the Zumo Shield Libraries
 
 h3. ZumoMotors
 
@@ -57,11 +77,17 @@ h3. QTRSensors
 
 This library, which can also be found in the "qtr-sensors-arduino repository":https://github.com/pololu/qtr-sensors-arduino, is a general library for interfacing with "Pololu QTR reflectance sensors":http://www.pololu.com/catalog/category/123.  Since the "Zumo Reflectance Sensor Array":http://www.pololu.com/catalog/product/1419 has the same interface as the QTR RC reflectance sensors, the ZumoReflectanceSensorArray library uses QTRSensors to read the sensor array.
 
-h2. Example Projects
+## Examples
 
-Some additional example sketches can be found under Files->Examples->ZumoExamples in the Arduino environment. These examples demonstrate how you can program a Zumo to perform more complex and interesting tasks by combining the functionality of multiple libraries. The Example Projects section of the "Zumo Shield user's guide":http://www.pololu.com/docs/0J57 describes these examples in more detail.
+Some additional example sketches can be found under
+Files->Examples->ZumoExamples in the Arduino environment. These
+examples demonstrate how you can program a Zumo to perform more
+complex and interesting tasks by combining the functionality of
+multiple libraries. The Example Projects section of the "Zumo Shield
+user's guide":http://www.pololu.com/docs/0J57 describes these examples
+in more detail.
 
-h2. Version History
+## Version history
 
 * 1.2.3 (2013-11-27): Updated examples to work with LSM303 library version 2.0.0.
 * 1.2.2 (2013-10-08): Added SumoCollisionDetect example.
