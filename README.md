@@ -73,18 +73,24 @@ Some of the examples also require our
 installed.
 
 
-## Using the parts of the library
+## Library parts
 
-The library
+The following sections describe parts of the library that can be
+included in your sketch. For example, to include ZumoMotors, you would
+add this to the top of your sketch:
+
+~~~{.cpp}
+#include <ZumoMotors.h>
+~~~
 
 ### ZumoMotors
 
-The ZumoMotors library provides functions for PWM-based speed (and
-direction) control of the two motors on the Zumo with the onboard
-DRV8835 dual motor driver. On Arduinos with ATmega328P, ATmega168, and
-ATmega32U4 microcontrollers (which include the Leonardo, Uno, and most
-older Arduinos), the motor control functions use hardware PWM outputs
-from Timer1 to generate pulse width modulation at a 20 kHz frequency.
+ZumoMotors provides functions for PWM-based speed (and direction)
+control of the two motors on the Zumo with the onboard DRV8835 dual
+motor driver. On Arduinos with ATmega328P, ATmega168, and ATmega32U4
+microcontrollers (which include the Leonardo, Uno, and most older
+Arduinos), the motor control functions use hardware PWM outputs from
+Timer1 to generate pulse width modulation at a 20 kHz frequency.
 
 If you accidentally soldered a motor to the Zumo Shield backwards
 (opposite the orientation indicated in the assembly instructions), you
@@ -93,17 +99,16 @@ make the motors behave consistently with the directions in your code.
 
 ### ZumoBuzzer
 
-The ZumoBuzzer library provides functions that allow various sounds to
-be played on the buzzer of the Zumo Shield, from simple beeps to
-complex tunes.  This library is fully compatible with the
-OrangutanBuzzer functions in the
-[Pololu AVR C/C++ Library](https://www.pololu.com/docs/0J18), so any
-melodies written for OrangutanBuzzer functions will also work with
+ZumoBuzzer provides functions that allow various sounds to be played
+on the buzzer of the Zumo Shield, from simple beeps to complex tunes.
+This library is fully compatible with the OrangutanBuzzer functions in
+the [Pololu AVR C/C++ Library](https://www.pololu.com/docs/0J18), so
+any melodies written for OrangutanBuzzer functions will also work with
 ZumoBuzzer functions.
 
 ### Pushbutton
 
-The Pushbutton library, which can also be found in the
+Pushbutton, which can also be found in the
 [pushbutton-arduino repository](https://github.com/pololu/pushbutton-arduino),
 provides a set of functions that are useful for detecting and
 debouncing pushbutton presses. While the most obvious application of
@@ -114,22 +119,21 @@ without a Zumo Shield.
 
 ### ZumoReflectanceSensorArray
 
-This library provides a set of functions for reading reflectance
-values from a
+ZumoReflectanceSensorArray provides a set of functions for reading
+reflectance values from a
 [Zumo Reflectance Sensor Array](https://www.pololu.com/catalog/product/1419).
 
-This library depends on the QTRSensors library.  The
-ZumoReflectanceSensorArray class is a subclass of QTRSensorsRC.  The
-functions provided by QTRSensorsRC can also be used on the
+The ZumoReflectanceSensorArray class is a subclass of QTRSensorsRC.
+The functions provided by QTRSensorsRC can also be used on the
 ZumoReflectanceSensorArray class, and are documented in the
 [Arduino Library for the Pololu QTR Reflectance Sensors](https://www.pololu.com/docs/0J19)
 document on Pololu's website.
 
 ### QTRSensors
 
-This library, which can also be found in the
+QTRSensors, which can also be found in the
 [qtr-sensors-arduino repository](https://github.com/pololu/qtr-sensors-arduino),
-is a general library for interfacing with
+is code for interfacing with
 [Pololu QTR reflectance sensors](https://www.pololu.com/catalog/category/123).
 Since the
 [Zumo Reflectance Sensor Array](https://www.pololu.com/catalog/product/1419)
@@ -141,7 +145,7 @@ array.
 
 Several example sketches are available that show how to use the
 library. You can access them from the Arduino IDE by opening the
-"File" menu, selecting "Examples", and then selecting "ZumoShiled". If
+"File" menu, selecting "Examples", and then selecting "ZumoShield". If
 you cannot find these examples, the library was probably installed
 incorrectly and you should retry the installation instructions above.
 
@@ -154,7 +158,7 @@ these examples in more detail.
 * 2.0.0 (2016-??-??):
     * Forked [https://github.com/pololu/zumo-shield](https://github.com/pololu/zumo-shield)
     * Consolidated sub-libraries into one library called ZumoShield.
-    * Added continuous testing.
+    * Added Travis CI testing.
     * Updated library to work with the Arduino Library Manager.
 * 1.2.3 (2013-11-27): Updated examples to work with LSM303 library version 2.0.0.
 * 1.2.2 (2013-10-08): Added SumoCollisionDetect example.
