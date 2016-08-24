@@ -72,6 +72,17 @@ Some of the examples also require our
 [LSM303 library](https://github.com/pololu/lsm303-arduino) to be
 installed.
 
+## Examples
+
+Several example sketches are available that show how to use the
+library. You can access them from the Arduino IDE by opening the
+"File" menu, selecting "Examples", and then selecting "ZumoShield". If
+you cannot find these examples, the library was probably installed
+incorrectly and you should retry the installation instructions above.
+
+The Example Projects section of the
+[Zumo Shield user's guide](https://www.pololu.com/docs/0J57) describes
+these examples in more detail.
 
 ## Library parts
 
@@ -140,18 +151,6 @@ Since the
 has the same interface as the QTR RC reflectance sensors, the
 ZumoReflectanceSensorArray library uses QTRSensors to read the sensor
 array.
-
-## Examples
-
-Several example sketches are available that show how to use the
-library. You can access them from the Arduino IDE by opening the
-"File" menu, selecting "Examples", and then selecting "ZumoShield". If
-you cannot find these examples, the library was probably installed
-incorrectly and you should retry the installation instructions above.
-
-The Example Projects section of the
-[Zumo Shield user's guide](https://www.pololu.com/docs/0J57) describes
-these examples in more detail.
 
 ## Version history
 
