@@ -227,11 +227,11 @@ class ZumoReflectanceSensorArray : public QTRSensorsRC
 \memberof ZumoReflectanceSensorArray
  * \brief Reads the raw sensor values into an array.
  *
- * \param sensorValues Array to populate with sensor readings.
+ * \param sensor_values Array to populate with sensor readings.
  * \param readMode     Read mode (`QTR_EMITTERS_OFF`, `QTR_EMITTERS_ON`, or
  *                     `QTR_EMITTERS_ON_AND_OFF`).
  *
- * There **must** be space in the \a sensorValues array for as many values as
+ * There **must** be space in the \a sensor_values array for as many values as
  * there were sensors specified in the constructor. The values returned are
  * measures of the reflectance in units of microseconds. They will be raw
  * readings between 0 and the \a timeout argument (in units of microseconds)
@@ -312,7 +312,7 @@ class ZumoReflectanceSensorArray : public QTRSensorsRC
 /*! \fn void QTRSensors::readCalibrated(unsigned int *sensor_values, unsigned char readMode = QTR_EMITTERS_ON)
  * \brief Returns sensor readings normalized to values between 0 and 1000.
  *
- * \param sensorValues Array to populate with sensor readings.
+ * \param sensor_values Array to populate with sensor readings.
  * \param readMode     Read mode (`QTR_EMITTERS_OFF`, `QTR_EMITTERS_ON`, or
  *                     `QTR_EMITTERS_ON_AND_OFF`).
  *
@@ -329,7 +329,7 @@ class ZumoReflectanceSensorArray : public QTRSensorsRC
 /*! \fn int QTRSensors::readLine(unsigned int *sensor_values, unsigned char readMode = QTR_EMITTERS_ON, unsigned char whiteLine = 0)
  * \brief Returns an estimated position of a line under the sensor array.
  *
- * \param sensorValues Array to populate with sensor readings.
+ * \param sensor_values Array to populate with sensor readings.
  * \param readMode     Read mode (`QTR_EMITTERS_OFF`, `QTR_EMITTERS_ON`, or
  *                     `QTR_EMITTERS_ON_AND_OFF`).
  * \param whiteLine   0 to detect a dark line on a light surface; 1 to detect
@@ -346,7 +346,7 @@ class ZumoReflectanceSensorArray : public QTRSensorsRC
  * the line is between two sensors. The formula is:
  *
  * \f[
- *   \newcommand{sv}[1]{\mathtt{sensorValues[#1]}}
+ *   \newcommand{sv}[1]{\mathtt{sensor_values[#1]}}
  *   \text{return value} =
  *     \frac{(0 \times \sv{0}) + (1000 \times \sv{1}) + (2000 \times \sv{2}) + \ldots}
  *          {\sv{0} + \sv{1} + \sv{2} + \ldots}
@@ -371,7 +371,7 @@ class ZumoReflectanceSensorArray : public QTRSensorsRC
  * QTRSensors class.
  */
 
- 
+
 // documentation for inherited member variables
 
 /*!
