@@ -6,9 +6,9 @@
  * \class ZumoReflectanceSensorArray ZumoReflectanceSensorArray.h
  * \brief Read from reflectance sensor array
  *
- * The ZumoReflectanceSensorArray library provides an interface for using a
+ * ZumoReflectanceSensorArray provides an interface for using a
  * [Zumo Reflectance Sensor Array](https://www.pololu.com/product/1419) connected
- * to a Zumo robot. The library provides access to the raw sensor values as well
+ * to a Zumo robot. It provides access to the raw sensor values as well
  * as to high level functions including calibration and line-tracking.
  *
  * For calibration, memory is allocated using the `malloc()` function. This
@@ -17,33 +17,36 @@
  * However, for an application where only two sensors are used, and the
  * emitters are always on during reads, only 4 bytes are required.
  *
- * Internally, this library uses all standard Arduino functions such as
+ * Internally, it uses all standard Arduino functions such as
  * `micros()` for timing and `digitalRead()` for getting the sensor values, so
  * it should work on all Arduinos without conflicting with other libraries.
  *
  * ### Calibration ###
  *
- * This library allows you to use the `calibrate()` method to easily calibrate
- * your sensors for the particular conditions it will encounter. Calibrating
- * your sensors can lead to substantially more reliable sensor readings, which
- * in turn can help simplify your code. As such, we recommend you build a
- * calibration phase into your Zumo's initialization routine. This can be as
- * simple as a fixed duration over which you repeatedly call the `calibrate()`
- * method.
+ * ZumoReflectanceSensorArray allows you to use the `calibrate()`
+ * method to easily calibrate your sensors for the particular
+ * conditions it will encounter. Calibrating your sensors can lead to
+ * substantially more reliable sensor readings, which in turn can help
+ * simplify your code. As such, we recommend you build a calibration
+ * phase into your Zumo's initialization routine. This can be as
+ * simple as a fixed duration over which you repeatedly call the
+ * `calibrate()` method.
  *
  * During this calibration phase, you will need to expose each of your
- * reflectance sensors to the lightest and darkest readings they will encounter.
- * For example, if your Zumo is programmed to be a line follower, you will want
- * to slide it across the line during the calibration phase so the each sensor
- * can get a reading of how dark the line is and how light the ground is (or you
- * can program it to automatically turn back and forth to pass all of the
- * sensors over the line). The **SensorCalibration** example included with this
- * library demonstrates a calibration routine.
+ * reflectance sensors to the lightest and darkest readings they will
+ * encounter.  For example, if your Zumo is programmed to be a line
+ * follower, you will want to slide it across the line during the
+ * calibration phase so the each sensor can get a reading of how dark
+ * the line is and how light the ground is (or you can program it to
+ * automatically turn back and forth to pass all of the sensors over
+ * the line). The **SensorCalibration** example demonstrates a
+ * calibration routine.
  *
  * ### Reading the sensors
  *
  *
- * This library gives you a number of different ways to read the sensors.
+ * ZumoReflectanceSensorArray gives you a number of different ways to
+ * read the sensors.
  *
  * - You can request raw sensor values using the `read()` method.
  *
@@ -57,16 +60,16 @@
  *   for each sensor and returns an integer that tells you where it thinks the
  *   line is.
  *
- * ### Class Inheritance ###
+ * ### Class inheritance ###
  *
  * The ZumoReflectanceSensorArray class is derived from the QTRSensorsRC class,
  * which is in turn derived from the QTRSensors base class. The QTRSensorsRC and
  * QTRSensors classes are part of the \ref QTRSensors.h "QTRSensors" library,
  * which provides more general functionality for working with reflectance
- * sensors and is included in the Zumo Shield libraries as a dependency for this
- * library.
+ * sensors and is included in the Zumo Shield Arduino Library as a dependency
+ * for this library.
  *
- * We recommend using the ZumoReflectanceSensorArray library instead of
+ * We recommend using ZumoReflectanceSensorArray instead of
  * the \ref QTRSensors.h "QTRSensors" library when programming an Arduino on a
  * Zumo. For documentation specific to the %QTRSensors library, please see its
  * [user's guide](https://www.pololu.com/docs/0J19) on Pololu's website.

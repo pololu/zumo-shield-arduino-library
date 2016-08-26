@@ -255,7 +255,7 @@ class ZumoBuzzer
 
   /*! \brief Plays the specified sequence of notes from program space.
    *
-   * \param sequence Char array in program space containing a sequence of notes
+   * \param sequence_p Char array in program space containing a sequence of notes
    *                 to play.
    *
    * A version of `play()` that takes a pointer to program space instead of RAM.

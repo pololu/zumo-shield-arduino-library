@@ -7,17 +7,18 @@ Release date: 2016-??-?? <br>
 
 ## Summary
 
-This is a collection of libraries for the
-[Arduino](https://pololu.com/catalog/product/2191) that interfaces with
-the Pololu [Zumo Shield](https://www.pololu.com/catalog/product/2508),
+This is a library for an
+[Arduino-compatible controller](https://www.pololu.com/arduino) that
+interfaces with the Pololu
+[Zumo Shield](https://www.pololu.com/catalog/product/2508),
 [Zumo Reflectance Sensor Array](https://www.pololu.com/catalog/product/1419),
 [Zumo robot kit](https://www.pololu.com/catalog/product/2509), and
-[Zumo robot for Arduino](https://www.pololu.com/catalog/product/2510). These
-libraries provide functions to help you program an Arduino-controlled
-Zumo robot, and the included example projects demonstrate how to use
-them for more complex tasks.
+[Zumo robot for Arduino](https://www.pololu.com/catalog/product/2510). It
+provides functions to help you program an Arduino-controlled Zumo
+robot, and the included example projects demonstrate how to use them
+for more complex tasks.
 
-For more information about the libraries and examples, please see the
+For more information about the library and examples, please see the
 [Zumo Shield user's guide](https://www.pololu.com/docs/0J57).
 
 ## Getting started
@@ -151,6 +152,13 @@ Since the
 has the same interface as the QTR RC reflectance sensors, the
 ZumoReflectanceSensorArray library uses QTRSensors to read the sensor
 array.
+
+## Documentation
+
+For complete documentation, see
+https://pololu.github.io/zumo-shield-arduino-library. If you are
+already on that page, then click on the links in the "Classes and
+functions" section above.
 
 ## Version history
 
