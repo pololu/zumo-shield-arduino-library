@@ -7,9 +7,9 @@
  * 75:1 HP motors.  Modifications might be required for it to work
  * well on different courses or with different motors.
  *
- * http://www.pololu.com/catalog/product/2506
- * http://www.pololu.com
- * http://forum.pololu.com
+ * https://www.pololu.com/catalog/product/2506
+ * https://www.pololu.com
+ * https://forum.pololu.com
  */
 
 #include <QTRSensors.h>

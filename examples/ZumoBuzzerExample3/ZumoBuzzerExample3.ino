@@ -29,7 +29,7 @@
  *
  * Immediately below are three #define statements that allow you to alter
  * the way this program runs.  You should have one of the three lines
- * uncommented while commenting out the other two:  
+ * uncommented while commenting out the other two:
  *
  * If only WORKING_CORRECTLY is uncommented, the program should run in its
  * ideal state, using automatic play mode during the LED-blinking phase
@@ -48,7 +48,7 @@
  * sound normal during the timing phase).  The maximum timing reading should
  * be close to 250, as expected.
  */
- 
+
 // *** UNCOMMENT ONE OF THE FOLLOWING PRECOMPILER DIRECTIVES ***
 // (the remaining two should be commented out)
 #define WORKING_CORRECTLY    // this is the right way to use playMode()
@@ -99,7 +99,7 @@ void loop()                     // run over and over again
     digitalWrite(LED_PIN, LOW);
     delay(500);
   }
-  
+
   Serial.println("timing...");
   // turn off automatic playing so that our time-critical code won't be interrupted by
   // the buzzer's long timer1 interrupt.  Otherwise, this interrupt could throw off our
@@ -115,7 +115,7 @@ void loop()                     // run over and over again
   {
     startTimeMicros = micros();
     elapsed = 0;
-    
+
     while (elapsed < 250)    // time for ~250 us
       elapsed = micros() - startTimeMicros;
     if (elapsed > maxTime)

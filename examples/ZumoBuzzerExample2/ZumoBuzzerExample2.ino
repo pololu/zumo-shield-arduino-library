@@ -16,10 +16,10 @@ ZumoBuzzer buzzer;
 Pushbutton button(ZUMO_BUTTON);
 
 #include <avr/pgmspace.h>  // this lets us refer to data in program space (i.e. flash)
-// store this fugue in program space using the PROGMEM macro.  
-// Later we will play it directly from program space, bypassing the need to load it 
+// store this fugue in program space using the PROGMEM macro.
+// Later we will play it directly from program space, bypassing the need to load it
 // all into RAM first.
-const char fugue[] PROGMEM = 
+const char fugue[] PROGMEM =
   "! O5 L16 agafaea dac+adaea fa<aa<bac#a dac#adaea f"
   "O6 dcd<b-d<ad<g d<f+d<gd<ad<b- d<dd<ed<f+d<g d<f+d<gd<ad"
   "L8 MS <b-d<b-d MLe-<ge-<g MSc<ac<a ML d<fd<f O5 MS b-gb-g"
@@ -37,13 +37,13 @@ void setup()                    // run once, when the sketch starts
 void loop()                     // run over and over again
 {
   static unsigned char mode = 0;
-  
+
   // wait here for the button to be pushed
   button.waitForButton();
-  
+
   // perform an action depending on the current mode
   switch (mode)
-  {      
+  {
     case 0:
       // play fugue from flash (program space)
       buzzer.playFromProgramSpace(fugue);
@@ -53,7 +53,7 @@ void loop()                     // run over and over again
       // play scale from RAM
       buzzer.play("! V10 cdefgab>cbagfedc");
       break;
-      
+
     case 2:
       // stop any currently playing melody
       buzzer.stopPlaying();
@@ -61,7 +61,7 @@ void loop()                     // run over and over again
       buzzer.playNote(NOTE_A(5), 200, 15);
       break;
   }
-  
+
   // increment mode and wrap around
   if (++mode > 2)
     mode = 0;

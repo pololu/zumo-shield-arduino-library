@@ -10,7 +10,7 @@
 #define MELODY_LENGTH 95
 
 // These arrays take up a total of 285 bytes of RAM (out of a limit of 1k (ATmega168), 2k (ATmega328), or 2.5k(ATmega32U4))
-unsigned char note[MELODY_LENGTH] = 
+unsigned char note[MELODY_LENGTH] =
 {
   NOTE_E(5), SILENT_NOTE, NOTE_E(5), SILENT_NOTE, NOTE_E(5), SILENT_NOTE, NOTE_C(5), NOTE_E(5),
   NOTE_G(5), SILENT_NOTE, NOTE_G(4), SILENT_NOTE,
@@ -63,7 +63,7 @@ void setup()                    // run once, when the sketch starts
 
 void loop()                     // run over and over again
 {
-  // if we haven't finished playing the song and 
+  // if we haven't finished playing the song and
   // the buzzer is ready for the next note, play the next note
   if (currentIdx < MELODY_LENGTH && !buzzer.isPlaying())
   {
@@ -76,7 +76,7 @@ void loop()                     // run over and over again
   // the melody will play normally while the rest of your code executes
   // as long as it executes quickly enough to keep from inserting delays
   // between the notes.
-  
+
   // For example, let the user pushbutton function as a stop/reset melody button
   if (button.isPressed())
   {

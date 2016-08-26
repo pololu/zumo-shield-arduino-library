@@ -21,7 +21,7 @@
  * important to take this into account when writing timing-critical code.
  *
  * The ZumoBuzzer library is fully compatible with the OrangutanBuzzer functions
- * in the [Pololu AVR C/C++ Library](http://www.pololu.com/docs/0J18), so any
+ * in the [Pololu AVR C/C++ Library](https://www.pololu.com/docs/0J18), so any
  * sequences and melodies written for OrangutanBuzzer functions will also work
  * with the equivalent ZumoBuzzer functions.
  */

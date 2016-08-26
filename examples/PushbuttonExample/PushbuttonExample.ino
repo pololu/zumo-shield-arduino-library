@@ -37,31 +37,31 @@ void loop()
     delay(10);                    // debounce the button press
   }
   while (!button.isPressed());    // if button isn't still pressed, loop
-  
+
   do
   {
     while (button.isPressed());   // wait for button to be released
     delay(10);                    // debounce the button release
   }
   while (button.isPressed());     // if button isn't still released, loop
-  
+
   // blink LED
   digitalWrite(LED_PIN, HIGH);
   delay(200);
   digitalWrite(LED_PIN, LOW);
-  
+
   /*
    * Method 2: Use the waitForButton() function, which blocks and doesn't
    * return until a button press and release are detected. This function
    * takes care of button debouncing.
    */
   button.waitForButton();
-  
+
   // blink LED
   digitalWrite(LED_PIN, HIGH);
   delay(200);
   digitalWrite(LED_PIN, LOW);
-  
+
   /*
    * Method 3: Call the getSingleDebouncedRelease() function repeatedly
    * in a loop, which returns true to report a single button release or false
@@ -77,8 +77,8 @@ void loop()
       // blink LED
       digitalWrite(LED_PIN, HIGH);
       delay(200);
-      digitalWrite(LED_PIN, LOW); 
-      
+      digitalWrite(LED_PIN, LOW);
+
       break;
     }
   }

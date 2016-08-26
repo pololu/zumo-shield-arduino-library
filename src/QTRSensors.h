@@ -16,15 +16,15 @@
  * Written by Ben Schmidel et al., October 4, 2010
  * Copyright (c) 2008-2012 Pololu Corporation. For more information, see
  *
- *   http://www.pololu.com
- *   http://forum.pololu.com
- *   http://www.pololu.com/docs/0J19
+ *   https://www.pololu.com
+ *   https://forum.pololu.com
+ *   https://www.pololu.com/docs/0J19
  *
  * You may freely modify and share this code, as long as you keep this
  * notice intact (including the two links above).  Licensed under the
  * Creative Commons BY-SA 3.0 license:
  *
- *   http://creativecommons.org/licenses/by-sa/3.0/
+ *   https://creativecommons.org/licenses/by-sa/3.0/
  *
  * Disclaimer: To the extent permitted by law, Pololu provides this work
  * without any warranty.  It might be defective, in which case you agree

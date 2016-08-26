@@ -7,14 +7,14 @@
 #include <Wire.h>
 #include <LSM303.h>
 
-/* This example uses the accelerometer in the Zumo Shield's onboard LSM303DLHC with the LSM303 Library to 
- * detect contact with an adversary robot in the sumo ring. The LSM303 Library is not included in the Zumo 
- * Shield libraries; it can be downloaded separately from GitHub at: 
+/* This example uses the accelerometer in the Zumo Shield's onboard LSM303DLHC with the LSM303 Library to
+ * detect contact with an adversary robot in the sumo ring. The LSM303 Library is not included in the Zumo
+ * Shield libraries; it can be downloaded separately from GitHub at:
  *
- *    https://github.com/pololu/LSM303 
+ *    https://github.com/pololu/LSM303
  *
  * This example extends the BorderDetect example, which makes use of the onboard Zumo Reflectance Sensor Array
- * and its associated library to detect the border of the sumo ring.  It also illustrates the use of the 
+ * and its associated library to detect the border of the sumo ring.  It also illustrates the use of the
  * ZumoMotors, PushButton, and ZumoBuzzer libraries.
  *
  * In loop(), the program reads the x and y components of acceleration (ignoring z), and detects a
@@ -23,21 +23,21 @@
  * the default SEARCH_SPEED, simulating a "fight or flight" response.
  *
  * The program attempts to detect contact only when the Zumo is going straight.  When it is executing a
- * turn at the sumo ring border, the turn itself generates an acceleration in the x-y plane, so the 
- * acceleration reading at that time is difficult to interpret for contact detection.  Since the Zumo also 
- * accelerates forward out of a turn, the acceleration readings are also ignored for MIN_DELAY_AFTER_TURN 
- * milliseconds after completing a turn. To further avoid false positives, a MIN_DELAY_BETWEEN_CONTACTS is 
+ * turn at the sumo ring border, the turn itself generates an acceleration in the x-y plane, so the
+ * acceleration reading at that time is difficult to interpret for contact detection.  Since the Zumo also
+ * accelerates forward out of a turn, the acceleration readings are also ignored for MIN_DELAY_AFTER_TURN
+ * milliseconds after completing a turn. To further avoid false positives, a MIN_DELAY_BETWEEN_CONTACTS is
  * also specified.
  *
  * This example also contains the following enhancements:
- * 
- *  - uses the Zumo Buzzer library to play a sound effect ("charge" melody) at start of competition and 
+ *
+ *  - uses the Zumo Buzzer library to play a sound effect ("charge" melody) at start of competition and
  *    whenever contact is made with an opposing robot
  *
  *  - randomizes the turn angle on border detection, so that the Zumo executes a more effective search pattern
  *
- *  - supports a FULL_SPEED_DURATION_LIMIT, allowing the robot to switch to a SUSTAINED_SPEED after a short 
- *    period of forward movement at FULL_SPEED.  In the example, both speeds are set to 400 (max), but this 
+ *  - supports a FULL_SPEED_DURATION_LIMIT, allowing the robot to switch to a SUSTAINED_SPEED after a short
+ *    period of forward movement at FULL_SPEED.  In the example, both speeds are set to 400 (max), but this
  *    feature may be useful to prevent runoffs at the turns if the sumo ring surface is unusually smooth.
  *
  *  - logging of accelerometer output to the serial monitor when LOG_SERIAL is #defined.
@@ -60,7 +60,7 @@ Pushbutton button(ZUMO_BUTTON); // pushbutton on pin 12
 unsigned int sensor_values[NUM_SENSORS];
 // this might need to be tuned for different lighting conditions, surfaces, etc.
 #define QTR_THRESHOLD  1500 // microseconds
-ZumoReflectanceSensorArray sensors(QTR_NO_EMITTER_PIN); 
+ZumoReflectanceSensorArray sensors(QTR_NO_EMITTER_PIN);
 
 // Motor Settings
 ZumoMotors motors;
@@ -87,7 +87,7 @@ unsigned long full_speed_start_time;
 ZumoBuzzer buzzer;
 const char sound_effect[] PROGMEM = "O4 T100 V15 L4 MS g12>c12>e12>G6>E12 ML>G2"; // "charge" melody
  // use V0 to suppress sound effect; v15 for max volume
- 
+
  // Timing
 unsigned long loop_start_time;
 unsigned long last_turn_time;
@@ -95,10 +95,10 @@ unsigned long contact_made_time;
 #define MIN_DELAY_AFTER_TURN          400  // ms = min delay before detecting contact event
 #define MIN_DELAY_BETWEEN_CONTACTS   1000  // ms = min delay between detecting new contact event
 
-// RunningAverage class 
+// RunningAverage class
 // based on RunningAverage library for Arduino
-// source:  http://playground.arduino.cc/Main/RunningAverage
-template <typename T> 
+// source:  https://playground.arduino.cc/Main/RunningAverage
+template <typename T>
 class RunningAverage
 {
   public:
@@ -118,7 +118,7 @@ class RunningAverage
     static T zero;
 };
 
-// Accelerometer Class -- extends the LSM303 Library to support reading and averaging the x-y acceleration 
+// Accelerometer Class -- extends the LSM303 Library to support reading and averaging the x-y acceleration
 //   vectors from the onboard LSM303DLHC accelerometer/magnetometer
 class Accelerometer : public LSM303
 {
@@ -129,8 +129,8 @@ class Accelerometer : public LSM303
     int y;
     float dir;
   } acc_data_xy;
-  
-  public: 
+
+  public:
     Accelerometer() : ra_x(RA_SIZE), ra_y(RA_SIZE) {};
     ~Accelerometer() {};
     void enable(void);
@@ -145,7 +145,7 @@ class Accelerometer : public LSM303
   private:
     acc_data_xy last;
     RunningAverage<int> ra_x;
-    RunningAverage<int> ra_y;   
+    RunningAverage<int> ra_y;
 };
 
 Accelerometer lsm303;
@@ -155,21 +155,21 @@ boolean in_contact;  // set when accelerometer detects contact with opposing rob
 void setForwardSpeed(ForwardSpeed speed);
 
 void setup()
-{  
+{
   // Initiate the Wire library and join the I2C bus as a master
   Wire.begin();
-  
+
   // Initiate LSM303
   lsm303.init();
   lsm303.enable();
-  
+
 #ifdef LOG_SERIAL
   Serial.begin(9600);
   lsm303.getLogHeader();
 #endif
 
   randomSeed((unsigned int) millis());
-  
+
   // uncomment if necessary to correct motor directions
   //motors.flipLeftMotor(true);
   //motors.flipRightMotor(true);
@@ -180,16 +180,16 @@ void setup()
 }
 
 void waitForButtonAndCountDown(bool restarting)
-{ 
+{
 #ifdef LOG_SERIAL
   Serial.print(restarting ? "Restarting Countdown" : "Starting Countdown");
   Serial.println();
 #endif
-  
+
   digitalWrite(LED, HIGH);
   button.waitForButton();
   digitalWrite(LED, LOW);
-   
+
   // play audible countdown
   for (int i = 0; i < 3; i++)
   {
@@ -199,7 +199,7 @@ void waitForButtonAndCountDown(bool restarting)
   delay(1000);
   buzzer.playFromProgramSpace(sound_effect);
   delay(1000);
-  
+
   // reset loop variables
   in_contact = false;  // 1 if contact made; 0 if no contact or contact lost
   contact_made_time = 0;
@@ -217,16 +217,16 @@ void loop()
     button.waitForRelease();
     waitForButtonAndCountDown(true);
   }
-  
+
   loop_start_time = millis();
-  lsm303.readAcceleration(loop_start_time); 
+  lsm303.readAcceleration(loop_start_time);
   sensors.read(sensor_values);
-  
+
   if ((_forwardSpeed == FullSpeed) && (loop_start_time - full_speed_start_time > FULL_SPEED_DURATION_LIMIT))
-  { 
+  {
     setForwardSpeed(SustainedSpeed);
   }
-  
+
   if (sensor_values[0] < QTR_THRESHOLD)
   {
     // if leftmost sensor detects line, reverse and turn to the right
@@ -245,7 +245,7 @@ void loop()
   }
 }
 
-// execute turn 
+// execute turn
 // direction:  RIGHT or LEFT
 // randomize: to improve searching
 void turn(char direction, bool randomize)
@@ -257,9 +257,9 @@ void turn(char direction, bool randomize)
 
   // assume contact lost
   on_contact_lost();
-  
+
   static unsigned int duration_increment = TURN_DURATION / 4;
-  
+
   // motors.setSpeeds(0,0);
   // delay(STOP_DURATION);
   motors.setSpeeds(-REVERSE_SPEED, -REVERSE_SPEED);
@@ -294,7 +294,7 @@ int getForwardSpeed()
   }
   return speed;
 }
-  
+
 // check for contact, but ignore readings immediately after turning or losing contact
 bool check_for_contact()
 {
@@ -353,14 +353,14 @@ void Accelerometer::readAcceleration(unsigned long timestamp)
 {
   readAcc();
   if (a.x == last.x && a.y == last.y) return;
-  
+
   last.timestamp = timestamp;
   last.x = a.x;
   last.y = a.y;
-  
+
   ra_x.addValue(last.x);
   ra_y.addValue(last.y);
- 
+
 #ifdef LOG_SERIAL
  Serial.print(last.timestamp);
  Serial.print("  ");
@@ -402,7 +402,7 @@ int Accelerometer::y_avg(void) const
 long Accelerometer::ss_xy_avg(void) const
 {
   long x_avg_long = static_cast<long>(x_avg());
-  long y_avg_long = static_cast<long>(y_avg()); 
+  long y_avg_long = static_cast<long>(y_avg());
   return x_avg_long*x_avg_long + y_avg_long*y_avg_long;
 }
 
@@ -413,9 +413,9 @@ float Accelerometer::dir_xy_avg(void) const
 
 
 
-// RunningAverage class 
+// RunningAverage class
 // based on RunningAverage library for Arduino
-// source:  http://playground.arduino.cc/Main/RunningAverage
+// source:  https://playground.arduino.cc/Main/RunningAverage
 // author:  Rob.Tillart@gmail.com
 // Released to the public domain
 
@@ -438,8 +438,8 @@ RunningAverage<T>::~RunningAverage()
 
 // resets all counters
 template <typename T>
-void RunningAverage<T>::clear() 
-{ 
+void RunningAverage<T>::clear()
+{
   _cnt = 0;
   _idx = 0;
   _sum = zero;
@@ -473,7 +473,7 @@ template <typename T>
 void RunningAverage<T>::fillValue(T value, int number)
 {
   clear();
-  for (int i = 0; i < number; i++) 
+  for (int i = 0; i < number; i++)
   {
     addValue(value);
   }

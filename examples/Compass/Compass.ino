@@ -222,3 +222,4 @@ float averageHeading()
   // avg is the average measure of the magnetic vector.
   return heading(avg);
 }
+ 

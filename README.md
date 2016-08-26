@@ -31,7 +31,7 @@ The Zumo Shield for Arduino can be purchased on Pololu's website:
   that also includes a
   [Zumo chassis](https://www.pololu.com/catalog/product/1418) and a
   stainless steel
-  [Zumo blade](http://www.pololu.com/catalog/product/1410); or
+  [Zumo blade](https://www.pololu.com/catalog/product/1410); or
 * as a fully-assembled
   **[Zumo robot for Arduino](https://www.pololu.com/catalog/product/2510)**
   with [75:1 HP motors](https://www.pololu.com/catalog/product/2361)

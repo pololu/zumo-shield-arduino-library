@@ -7,7 +7,7 @@
  * \brief Read from reflectance sensor array
  *
  * The ZumoReflectanceSensorArray library provides an interface for using a
- * [Zumo Reflectance Sensor Array](http://www.pololu.com/product/1419) connected
+ * [Zumo Reflectance Sensor Array](https://www.pololu.com/product/1419) connected
  * to a Zumo robot. The library provides access to the raw sensor values as well
  * as to high level functions including calibration and line-tracking.
  *
@@ -69,7 +69,7 @@
  * We recommend using the ZumoReflectanceSensorArray library instead of
  * the \ref QTRSensors.h "QTRSensors" library when programming an Arduino on a
  * Zumo. For documentation specific to the %QTRSensors library, please see its
- * [user's guide](http://www.pololu.com/docs/0J19) on Pololu's website.
+ * [user's guide](https://www.pololu.com/docs/0J19) on Pololu's website.
  */
 
 #ifndef ZumoReflectanceSensorArray_h
@@ -177,7 +177,7 @@ class ZumoReflectanceSensorArray : public QTRSensorsRC
    * height of your sensors and ambient lighting. This allows you to shorten the
    * duration of a sensor-reading cycle while maintaining useful measurements of
    * reflectance. If \a timeout is not specified, it defaults to 2000 us. (See
-   * the [product page](http://www.pololu.com/product/1419) for the Zumo
+   * the [product page](https://www.pololu.com/product/1419) for the Zumo
    * Reflectance Sensor Array on Pololu's website for an overview of the
    * sensors' principle of operation.)
    *
