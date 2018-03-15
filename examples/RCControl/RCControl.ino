@@ -1,4 +1,4 @@
-#include <ZumoMotors.h>
+#include <ZumoShield.h>
 
 #define THROTTLE_PIN   4 // throttle channel from RC receiver
 #define STEERING_PIN   5 // steering channel from RC receiver

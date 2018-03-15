@@ -1,12 +1,3 @@
-#include <ZumoBuzzer.h>
-#include <ZumoMotors.h>
-#include <Pushbutton.h>
-#include <QTRSensors.h>
-#include <ZumoReflectanceSensorArray.h>
-#include <avr/pgmspace.h>
-#include <Wire.h>
-#include <LSM303.h>
-
 /* This example uses the accelerometer in the Zumo Shield's onboard LSM303DLHC with the LSM303 Library to
  * detect contact with an adversary robot in the sumo ring. The LSM303 Library is not included in the Zumo
  * Shield Arduino Library; it can be downloaded separately from GitHub at:
@@ -45,6 +36,11 @@
  *  This example also makes use of the public domain RunningAverage library from the Arduino website; the relevant
  *  code has been copied into this .ino file and does not need to be downloaded separately.
  */
+
+#include <ZumoShield.h>
+#include <avr/pgmspace.h>
+#include <Wire.h>
+#include <LSM303.h>
 
 // #define LOG_SERIAL // write log output to serial port
 

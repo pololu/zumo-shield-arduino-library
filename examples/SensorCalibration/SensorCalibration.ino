@@ -1,6 +1,3 @@
-#include <QTRSensors.h>
-#include <ZumoReflectanceSensorArray.h>
-
 /*
 This example is designed to be run an Arduino that is connected to a Zumo
 Reflectance Sensor Array through a Zumo Shield.
@@ -27,6 +24,8 @@ directly under sensor 2, etc.  0 means the line is directly under sensor 0
 or was last seen by sensor 0 before being lost.  5000 means the line is
 directly under sensor 5 or was last seen by sensor 5 before being lost.
 */
+
+#include <ZumoShield.h>
 
 ZumoReflectanceSensorArray reflectanceSensors;
 

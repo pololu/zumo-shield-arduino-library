@@ -1,5 +1,3 @@
-#include <ZumoMotors.h>
-
 /*
  * This example uses the ZumoMotors library to drive each motor on the Zumo
  * forward, then backward. The yellow user LED is on when a motor should be
@@ -8,6 +6,8 @@
  * uncommenting the call to flipLeftMotor() or flipRightMotor() in the setup()
  * function.
  */
+
+#include <ZumoShield.h>
 
 #define LED_PIN 13
 

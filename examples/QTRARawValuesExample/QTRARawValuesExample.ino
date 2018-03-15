@@ -1,5 +1,3 @@
-#include <QTRSensors.h>
-
 // This example is designed for use with six QTR-1A sensors or the first six sensors of a
 // QTR-8A module.  These reflectance sensors should be connected to analog inputs 0 to 5.
 // The QTR-8A's emitter control pin (LEDON) can optionally be connected to digital pin 2,
@@ -11,6 +9,7 @@
 // paper and sliding the sensor across it.  It prints the sensor values to the serial
 // monitor as numbers from 0 (maximum reflectance) to 1023 (minimum reflectance).
 
+#include <ZumoShield.h>
 
 #define NUM_SENSORS             6  // number of sensors used
 #define NUM_SAMPLES_PER_SENSOR  4  // average 4 analog samples per sensor reading

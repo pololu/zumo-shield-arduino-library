@@ -1,11 +1,10 @@
-#include <ZumoBuzzer.h>
-#include <Pushbutton.h>
-
 /*
  * This example uses the ZumoBuzzer library to play a series of notes on
  * the buzzer.  It also uses Pushbutton library to allow the user to
  * stop/reset the melody with the user pushbutton.
  */
+
+#include <ZumoShield.h>
 
 #define MELODY_LENGTH 95
 

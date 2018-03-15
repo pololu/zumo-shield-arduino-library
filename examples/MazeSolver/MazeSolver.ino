@@ -1,9 +1,3 @@
-#include <QTRSensors.h>
-#include <ZumoReflectanceSensorArray.h>
-#include <ZumoMotors.h>
-#include <ZumoBuzzer.h>
-#include <Pushbutton.h>
-
 /* This example uses the Zumo Reflectance Sensor Array
  * to navigate a black line maze with no loops. This program
  * is based off the 3pi maze solving example which can be
@@ -29,6 +23,8 @@
  * might need to be adjusted on a case by case basis to give better
  * line following results.
  */
+
+#include <ZumoShield.h>
 
 // SENSOR_THRESHOLD is a value to compare reflectance sensor
 // readings to to decide if the sensor is over a black line

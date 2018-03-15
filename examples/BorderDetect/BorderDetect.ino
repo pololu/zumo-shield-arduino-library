@@ -1,8 +1,4 @@
-#include <ZumoBuzzer.h>
-#include <ZumoMotors.h>
-#include <Pushbutton.h>
-#include <QTRSensors.h>
-#include <ZumoReflectanceSensorArray.h>
+#include <ZumoShield.h>
 
 #define LED 13
 

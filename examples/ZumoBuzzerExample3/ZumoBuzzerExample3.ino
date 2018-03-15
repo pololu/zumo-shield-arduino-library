@@ -1,6 +1,3 @@
-#include <ZumoBuzzer.h>
-#include <Pushbutton.h>
-
 /*
  * This example uses the ZumoBuzzer library to play a series of notes on
  * the Zumo Shield's piezo buzzer.
@@ -48,6 +45,8 @@
  * sound normal during the timing phase).  The maximum timing reading should
  * be close to 250, as expected.
  */
+
+#include <ZumoShield.h>
 
 // *** UNCOMMENT ONE OF THE FOLLOWING PRECOMPILER DIRECTIVES ***
 // (the remaining two should be commented out)

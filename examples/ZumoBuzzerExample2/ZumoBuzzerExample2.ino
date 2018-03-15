@@ -1,6 +1,3 @@
-#include <ZumoBuzzer.h>
-#include <Pushbutton.h>
-
 /*
  * This example uses the ZumoBuzzer library to play a series of notes on
  * the buzzer.  It uses the Pushbutton library to allow the user to
@@ -11,6 +8,8 @@
  * no further action from the user once the method is called.  The CPU
  * is then free to execute other code while the melody plays.
  */
+
+#include <ZumoShield.h>
 
 ZumoBuzzer buzzer;
 Pushbutton button(ZUMO_BUTTON);

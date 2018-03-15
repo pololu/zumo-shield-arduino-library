@@ -12,12 +12,7 @@
  * https://forum.pololu.com
  */
 
-#include <QTRSensors.h>
-#include <ZumoReflectanceSensorArray.h>
-#include <ZumoMotors.h>
-#include <ZumoBuzzer.h>
-#include <Pushbutton.h>
-
+#include <ZumoShield.h>
 
 ZumoBuzzer buzzer;
 ZumoReflectanceSensorArray reflectanceSensors;

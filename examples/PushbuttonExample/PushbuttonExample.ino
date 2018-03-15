@@ -1,5 +1,3 @@
-#include <Pushbutton.h>
-
 /*
  * This example uses the Pushbutton library to demonstrate three different
  * methods for detecting a button press and release. It blinks the yellow
@@ -7,6 +5,9 @@
  * still use this demo without a Zumo Shield if you connect a normally-open
  * momentary pushbutton between digital pin 12 and ground on your Arduino.
  */
+
+#include <ZumoShield.h>
+
 
 #define LED_PIN 13
 

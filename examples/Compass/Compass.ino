@@ -1,8 +1,3 @@
-#include <ZumoMotors.h>
-#include <Pushbutton.h>
-#include <Wire.h>
-#include <LSM303.h>
-
 /* This example uses the magnetometer in the Zumo Shield's onboard
  * LSM303DLHC to help the Zumo make precise 90-degree turns and drive
  * in squares. It uses ZumoMotors, Pushbutton, and the LSM303
@@ -24,6 +19,10 @@
  * affect readings from the LSM303 compass and make them less
  * reliable.
  */
+
+#include <ZumoShield.h>
+#include <Wire.h>
+#include <LSM303.h>
 
 #define SPEED           200 // Maximum motor speed when going straight; variable speed when turning
 #define TURN_BASE_SPEED 100 // Base speed when turning (added to variable speed)
