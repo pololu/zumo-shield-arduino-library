@@ -12,6 +12,7 @@
  * https://forum.pololu.com
  */
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 ZumoBuzzer buzzer;

@@ -9,15 +9,15 @@
  * is then free to execute other code while the melody plays.
  */
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 ZumoBuzzer buzzer;
 Pushbutton button(ZUMO_BUTTON);
 
-#include <avr/pgmspace.h>  // this lets us refer to data in program space (i.e. flash)
-// store this fugue in program space using the PROGMEM macro.
-// Later we will play it directly from program space, bypassing the need to load it
-// all into RAM first.
+// Store in program space using the PROGMEM macro.  Later we will play
+// it directly from program space, bypassing the need to load it all
+// into RAM first.
 const char fugue[] PROGMEM =
   "! O5 L16 agafaea dac+adaea fa<aa<bac#a dac#adaea f"
   "O6 dcd<b-d<ad<g d<f+d<gd<ad<b- d<dd<ed<f+d<g d<f+d<gd<ad"

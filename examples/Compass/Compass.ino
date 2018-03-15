@@ -20,9 +20,8 @@
  * reliable.
  */
 
-#include <ZumoShield.h>
 #include <Wire.h>
-#include <LSM303.h>
+#include <ZumoShield.h>
 
 #define SPEED           200 // Maximum motor speed when going straight; variable speed when turning
 #define TURN_BASE_SPEED 100 // Base speed when turning (added to variable speed)

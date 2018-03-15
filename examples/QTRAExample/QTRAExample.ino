@@ -25,6 +25,7 @@
 // sensor 0 before being lost.  5000 means the line is directly under sensor 5 or was
 // last seen by sensor 5 before being lost.
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 #define NUM_SENSORS             6  // number of sensors used

@@ -1,3 +1,4 @@
+#include <Wire.h>
 #include <ZumoShield.h>
 
 #define LED 13

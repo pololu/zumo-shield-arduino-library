@@ -1,15 +1,22 @@
-/*! \file ZumoBuzzer.h
+// Copyright Pololu Corporation.  For more information, see http://www.pololu.com/
+
+/*! \file PololuBuzzer.h
  *
- * See the ZumoBuzzer class reference for more information about this library.
+ * See the PololuBuzzer class reference for more information about this library.
  *
- * \class ZumoBuzzer ZumoBuzzer.h
- * \brief Play beeps and music with buzzer
+ * The main repository for this library is
+ * https://github.com/pololu/pololu-buzzer-arduino, though copies of this
+ * library also exist in other repositories.
  *
- * The ZumoBuzzer library allows various sounds to be played through the buzzer
- * on the Zumo Shield, from simple beeps to complex tunes. The buzzer is
- * controlled using a PWM output of Timer 2 (on the Arduino Uno and other
- * ATmega328/168 boards) or Timer 4 (on the Arduino Leonardo and other
- * ATmega32U4 boards), so it will conflict with any other uses of that timer.
+ * \class PololuBuzzer PololuBuzzer.h
+ * \brief Play beeps and music with the buzzer.
+ *
+ * The PololuBuzzer library allows various sounds to be played through a buzzer,
+ * from simple beeps to complex tunes.
+ *
+ * On the ATmega328P/168 boards, this library uses Timer 2 and pin 3 (PD3/OC2B).
+ * On ATmega32U4 boards, this library uses Timer 4 and pin 6 (PD7/OC4D).  This
+ * library will conflict will other libraries that use the same timer or pin.
  *
  * Note durations are timed using a timer overflow interrupt
  * (`TIMER2_OVF`/`TIMER4_OVF`), which will briefly interrupt execution of your
@@ -20,16 +27,22 @@
  * (perhaps several hundred microseconds) every time it starts a new note. It is
  * important to take this into account when writing timing-critical code.
  *
- * The ZumoBuzzer library is fully compatible with the OrangutanBuzzer functions
- * in the [Pololu AVR C/C++ Library](https://www.pololu.com/docs/0J18), so any
- * sequences and melodies written for OrangutanBuzzer functions will also work
- * with the equivalent ZumoBuzzer functions.
- */
+ * This library is fully compatible with the OrangutanBuzzer functions
+ * in the [Pololu AVR C/C++ Library](http://www.pololu.com/docs/0J18)
+ * and the [ZumoBuzzer library](https://github.com/pololu/zumo-shield),
+ * so any sequences and melodies written for those libraries will also work
+ * with the equivalent PololuBuzzer functions. */
 
-#ifndef ZumoBuzzer_h
-#define ZumoBuzzer_h
+#pragma once
 
+#include <avr/pgmspace.h>
+
+/*! \brief Specifies that the sequence of notes will play with no further action
+ *  required by the user. */
 #define PLAY_AUTOMATIC 0
+
+
+/*! \brief Specified that the user will need to call `playCheck()` regularly. */
 #define PLAY_CHECK     1
 
 //                                             n
@@ -73,12 +86,9 @@
 #define DIV_BY_10     (1 << 15)
 /*! @} */
 
-class ZumoBuzzer
+class PololuBuzzer
 {
   public:
-
-    // constructor
-  ZumoBuzzer();
 
   /*! \brief Plays the specified frequency for the specified duration.
    *
@@ -93,10 +103,10 @@ class ZumoBuzzer
    * play a frequency of 44.5 Hz by using a \a frequency of `(DIV_BY_10 | 445)`.
    * If the most significant bit of \a frequency is not set, the units for
    * frequency are Hz. The \a volume argument controls the buzzer volume, with
-   * 15 being the loudest and 0 being the quietest. A \a volume of 15 supplies 
+   * 15 being the loudest and 0 being the quietest. A \a volume of 15 supplies
    * the buzzer with a 50% duty cycle PWM at the specified \a frequency.
    * Lowering \a volume by one halves the duty cycle (so 14 gives a 25% duty
-   * cycle, 13 gives a 12.5% duty cycle, etc). The volume control is somewhat 
+   * cycle, 13 gives a 12.5% duty cycle, etc). The volume control is somewhat
    * crude (especially on the ATmega328/168) and should be thought of as a bonus
    * feature.
    *
@@ -110,8 +120,8 @@ class ZumoBuzzer
    *
    * ### Example ###
    *
-   * ~~~{.ino}
-   * ZumoBuzzer buzzer;
+   * ~~~{.cpp}
+   * PololuBuzzer buzzer;
    *
    * ...
    *
@@ -126,11 +136,11 @@ class ZumoBuzzer
    * ~~~
    *
    * \warning \a frequency &times; \a duration / 1000 must be no greater than
-     0xFFFF (65535). This means you can't use a max duration of 65535 ms for
-     frequencies greater than 1 kHz. For example, the maximum duration you can
-     use for a frequency of 10 kHz is 6553 ms. If you use a duration longer than
-     this, you will produce an integer overflow that can result in unexpected
-     behavior.
+   * 0xFFFF (65535). This means you can't use a duration of 65535 ms for
+   * frequencies greater than 1 kHz. For example, the maximum duration you can
+   * use for a frequency of 10 kHz is 6553 ms. If you use a duration longer than
+   * this, you will produce an integer overflow that can result in unexpected
+   * behavior.
    */
   static void playFrequency(unsigned int freq, unsigned int duration,
                 unsigned char volume);
@@ -143,10 +153,10 @@ class ZumoBuzzer
    *
    * The \a note argument is an enumeration for the notes of the equal tempered
    * scale (ETS). See \ref note_macros "Note Macros" for more information. The
-   * \a volume argument controls the buzzer volume, with 15 being the loudest 
-   * and 0 being the quietest. A \a volume of 15 supplies the buzzer with a 50% 
-   * duty cycle PWM at the specified \a frequency. Lowering \a volume by one 
-   * halves the duty cycle (so 14 gives a 25% duty cycle, 13 gives a 12.5% duty 
+   * \a volume argument controls the buzzer volume, with 15 being the loudest
+   * and 0 being the quietest. A \a volume of 15 supplies the buzzer with a 50%
+   * duty cycle PWM at the specified \a frequency. Lowering \a volume by one
+   * halves the duty cycle (so 14 gives a 25% duty cycle, 13 gives a 12.5% duty
    * cycle, etc). The volume control is somewhat crude (especially on the
    * ATmega328/168) and should be thought of as a bonus feature.
    *
@@ -238,8 +248,8 @@ class ZumoBuzzer
    *
    * ### Example ###
    *
-   * ~~~{.ino}
-   * ZumoBuzzer buzzer;
+   * ~~~{.cpp}
+   * PololuBuzzer buzzer;
    *
    * ...
    *
@@ -255,7 +265,7 @@ class ZumoBuzzer
 
   /*! \brief Plays the specified sequence of notes from program space.
    *
-   * \param sequence_p Char array in program space containing a sequence of notes
+   * \param sequence Char array in program space containing a sequence of notes
    *                 to play.
    *
    * A version of `play()` that takes a pointer to program space instead of RAM.
@@ -264,10 +274,10 @@ class ZumoBuzzer
    *
    * ### Example ###
    *
-   * ~~~{.ino}
+   * ~~~{.cpp}
    * #include <avr/pgmspace.h>
    *
-   * ZumoBuzzer buzzer;
+   * PololuBuzzer buzzer;
    * const char melody[] PROGMEM = "!L16 V8 cdefgab>cbagfedc";
    *
    * ...
@@ -275,7 +285,7 @@ class ZumoBuzzer
    * buzzer.playFromProgramSpace(melody);
    * ~~~
    */
-  static void playFromProgramSpace(const char *sequence_p);
+  static void playFromProgramSpace(const char *sequence);
 
   /*! \brief Controls whether `play()` sequence is played automatically or
    *         must be driven with `playCheck()`.
@@ -284,14 +294,14 @@ class ZumoBuzzer
    *
    * This method lets you determine whether the notes of the `play()` sequence
    * are played automatically in the background or are driven by the
-   * `play_check()` method. If \a mode is `PLAY_AUTOMATIC`, the sequence will
+   * `playCheck()` method. If \a mode is `PLAY_AUTOMATIC`, the sequence will
    * play automatically in the background, driven by the timer overflow
    * interrupt. The interrupt will take a considerable amount of time to execute
    * when it starts the next note in the sequence playing, so it is recommended
    * that you do not use automatic-play if you cannot tolerate being interrupted
    * for more than a few microseconds. If \a mode is `PLAY_CHECK`, you can
    * control when the next note in the sequence is played by calling the
-   * `play_check()` method at acceptable points in your main loop. If your main
+   * `playCheck()` method at acceptable points in your main loop. If your main
    * loop has substantial delays, it is recommended that you use automatic-play
    * mode rather than play-check mode. Note that the play mode can be changed
    * while the sequence is being played. The mode is set to `PLAY_AUTOMATIC` by
@@ -341,5 +351,3 @@ class ZumoBuzzer
   static void init2();
   static void init();
 };
-
-#endif

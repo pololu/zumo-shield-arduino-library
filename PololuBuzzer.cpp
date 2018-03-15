@@ -1,10 +1,7 @@
-#ifndef F_CPU
-#define F_CPU 16000000UL  // Standard Arduinos run at 16 MHz
-#endif //!F_CPU
+// Copyright Pololu Corporation.  For more information, see http://www.pololu.com/
 
 #include <avr/interrupt.h>
-#include <avr/pgmspace.h>
-#include "ZumoBuzzer.h"
+#include "PololuBuzzer.h"
 
 #ifdef __AVR_ATmega32U4__
 
@@ -34,32 +31,31 @@ static const unsigned int cs2_divider[] = {0, 1, 8, 32, 64, 128, 256, 1024};
 
 unsigned char buzzerInitialized = 0;
 volatile unsigned char buzzerFinished = 1;  // flag: 0 while playing
-const char *buzzerSequence = 0;
+const char * volatile buzzerSequence = 0;
 
 // declaring these globals as static means they won't conflict
 // with globals in other .cpp files that share the same name
 static volatile unsigned int buzzerTimeout = 0;    // tracks buzzer time limit
-static char play_mode_setting = PLAY_AUTOMATIC;
+static volatile char play_mode_setting = PLAY_AUTOMATIC;
 
 extern volatile unsigned char buzzerFinished;  // flag: 0 while playing
-extern const char *buzzerSequence;
+extern const char * volatile buzzerSequence;
 
 
-static unsigned char use_program_space; // boolean: true if we should
+static volatile unsigned char use_program_space; // boolean: true if we should
                     // use program space
 
 // music settings and defaults
-static unsigned char octave = 4;        // the current octave
-static unsigned int whole_note_duration = 2000;  // the duration of a whole note
-static unsigned int note_type = 4;              // 4 for quarter, etc
-static unsigned int duration = 500;        // the duration of a note in ms
-static unsigned int volume = 15;        // the note volume
-static unsigned char staccato = 0;       // true if playing staccato
+static volatile unsigned char octave = 4;                 // the current octave
+static volatile unsigned int whole_note_duration = 2000;  // the duration of a whole note
+static volatile unsigned int note_type = 4;               // 4 for quarter, etc
+static volatile unsigned int duration = 500;              // the duration of a note in ms
+static volatile unsigned int volume = 15;                 // the note volume
+static volatile unsigned char staccato = 0;               // true if playing staccato
 
 // staccato handling
-static unsigned char staccato_rest_duration;  // duration of a staccato
-                        //  rest, or zero if it is time
-                        //  to play a note
+static volatile unsigned char staccato_rest_duration;  // duration of a staccato rest,
+                                              // or zero if it is time to play a note
 
 static void nextNote();
 
@@ -73,7 +69,7 @@ ISR (TIMER4_OVF_vect)
     DISABLE_TIMER_INTERRUPT();
     sei();                                    // re-enable global interrupts (nextNote() is very slow)
     TCCR4B = (TCCR4B & 0xF0) | TIMER4_CLK_8;  // select IO clock
-    unsigned int top = (F_CPU/16) / 1000;     // set TOP for freq = 1 kHz: 
+    unsigned int top = (F_CPU/16) / 1000;     // set TOP for freq = 1 kHz:
     TC4H = top >> 8;                          // top 2 bits... (TC4H temporarily stores top 2 bits of 10-bit accesses)
     OCR4C = top;                              // and bottom 8 bits
     TC4H = 0;                                 // 0% duty cycle: top 2 bits...
@@ -104,15 +100,8 @@ ISR (TIMER2_OVF_vect)
 
 #endif
 
-
-// constructor
-
-ZumoBuzzer::ZumoBuzzer()
-{
-}
-
 // this is called by playFrequency()
-inline void ZumoBuzzer::init()
+inline void PololuBuzzer::init()
 {
   if (!buzzerInitialized)
   {
@@ -122,10 +111,10 @@ inline void ZumoBuzzer::init()
 }
 
 // initializes timer4 (32U4) or timer2 (328P) for buzzer control
-void ZumoBuzzer::init2()
+void PololuBuzzer::init2()
 {
   DISABLE_TIMER_INTERRUPT();
-  
+
 #ifdef __AVR_ATmega32U4__
   TCCR4A = 0x00;  // bits 7 and 6 clear: normal port op., OC4A disconnected
                   // bits 5 and 4 clear: normal port op., OC4B disconnected
@@ -133,15 +122,15 @@ void ZumoBuzzer::init2()
                   // bit 2 clear: no force output compare for channel B
                   // bit 1 clear: disable PWM for channel A
                   // bit 0 clear: disable PWM for channel B
-  
+
   TCCR4B = 0x04;  // bit 7 clear: disable PWM inversion
                   // bit 6 clear: no prescaler reset
                   // bits 5 and 4 clear: dead time prescaler 1
                   // bit 3 clear, 2 set, 1-0 clear: timer clock = CK/8
-  
+
   TCCR4C = 0x09;  // bits 7 and 6 clear: normal port op., OC4A disconnected
                   // bits 5 and 4 clear: normal port op., OC4B disconnected
-                  // bit 3 set, 2 clear: clear OC4D on comp match when upcounting, 
+                  // bit 3 set, 2 clear: clear OC4D on comp match when upcounting,
                   //                     set OC4D on comp match when downcounting
                   // bit 1 clear: no force output compare for channel D
                   // bit 0 set: enable PWM for channel 4
@@ -160,19 +149,19 @@ void ZumoBuzzer::init2()
   //    where TOP = OCR4C, OCR4D is updated at BOTTOM, TOV1 Flag is set on BOTTOM.
   //    OC4D is cleared on compare match when upcounting, set on compare
   //    match when downcounting; OC4A and OC4B are disconnected.
-  
-  unsigned int top = (F_CPU/16) / 1000; // set TOP for freq = 1 kHz: 
+
+  unsigned int top = (F_CPU/16) / 1000; // set TOP for freq = 1 kHz:
   TC4H = top >> 8;                      // top 2 bits...
   OCR4C = top;                          // and bottom 8 bits
   TC4H = 0;                             // 0% duty cycle: top 2 bits...
   OCR4D = 0;                            // and bottom 8 bits
 #else
   TCCR2A = 0x21;  // bits 7 and 6 clear: normal port op., OC4A disconnected
-                  // bit 5 set, 4 clear: clear OC2B on comp match when upcounting, 
+                  // bit 5 set, 4 clear: clear OC2B on comp match when upcounting,
                   //                     set OC2B on comp match when downcounting
                   // bits 3 and 2: not used
                   // bit 1 clear, 0 set: combine with bit 3 of TCCR2B...
-                  
+
   TCCR2B = 0x0B;  // bit 7 clear: no force output compare for channel A
                   // bit 6 clear: no force output compare for channel B
                   // bits 5 and 4: not used
@@ -180,7 +169,7 @@ void ZumoBuzzer::init2()
                   //    select waveform generation mode 5, phase-correct PWM,
                   //    TOP = OCR2A, OCR2B set at TOP, TOV2 flag set at BOTTOM
                   // bit 2 clear, 1-0 set: timer clock = clkT2S/32
-                  
+
   // This sets timer 2 to run in phase-correct PWM mode, where TOP = OCR2A,
   //    OCR2B is updated at TOP, TOV2 Flag is set on BOTTOM. OC2B is cleared
   //    on compare match when upcounting, set on compare match when downcounting;
@@ -188,18 +177,18 @@ void ZumoBuzzer::init2()
   // Note: if the PWM frequency and duty cycle are changed, the first
   //    cycle of the new frequency will be at the old duty cycle, since
   //    the duty cycle (OCR2B) is not updated until TOP.
-  
+
 
   OCR2A = (F_CPU/64) / 1000;  // set TOP for freq = 1 kHz
   OCR2B = 0;                  // 0% duty cycle
 #endif
-  
+
   BUZZER_DDR |= BUZZER;    // buzzer pin set as an output
   sei();
 }
 
 
-// Set up timer 1 to play the desired frequency (in Hz or .1 Hz) for the
+// Set up the timer to play the desired frequency (in Hz or .1 Hz) for the
 //   the desired duration (in ms). Allowed frequencies are 40 Hz to 10 kHz.
 //   volume controls buzzer volume, with 15 being loudest and 0 being quietest.
 // Note: frequency*duration/1000 must be less than 0xFFFF (65535).  This
@@ -207,15 +196,15 @@ void ZumoBuzzer::init2()
 //   greater than 1 kHz.  For example, the max duration you can use for a
 //   frequency of 10 kHz is 6553 ms.  If you use a duration longer than this,
 //   you will cause an integer overflow that produces unexpected behavior.
-void ZumoBuzzer::playFrequency(unsigned int freq, unsigned int dur, 
+void PololuBuzzer::playFrequency(unsigned int freq, unsigned int dur,
                      unsigned char volume)
 {
   init(); // initializes the buzzer if necessary
   buzzerFinished = 0;
-  
+
   unsigned int timeout;
   unsigned char multiplier = 1;
-  
+
   if (freq & DIV_BY_10) // if frequency's DIV_BY_10 bit is set
   {                     //  then the true frequency is freq/10
     multiplier = 10;    //  (gives higher resolution for small freqs)
@@ -224,30 +213,30 @@ void ZumoBuzzer::playFrequency(unsigned int freq, unsigned int dur,
 
   unsigned char min = 40 * multiplier;
   if (freq < min) // min frequency allowed is 40 Hz
-    freq = min;  
+    freq = min;
   if (multiplier == 1 && freq > 10000)
     freq = 10000;      // max frequency allowed is 10kHz
 
 #ifdef __AVR_ATmega32U4__
   unsigned long top;
   unsigned char dividerExponent = 0;
-  
+
   // calculate necessary clock source and counter top value to get freq
   top = (unsigned int)(((F_CPU/2 * multiplier) + (freq >> 1))/ freq);
-  
+
   while (top > 1023)
   {
     dividerExponent++;
     top = (unsigned int)((((F_CPU/2 >> (dividerExponent)) * multiplier) + (freq >> 1))/ freq);
   }
-#else   
+#else
   unsigned int top;
   unsigned char newCS2 = 2; // try prescaler divider of 8 first (minimum necessary for 10 kHz)
   unsigned int divider = cs2_divider[newCS2];
 
   // calculate necessary clock source and counter top value to get freq
   top = (unsigned int)(((F_CPU/16 * multiplier) + (freq >> 1))/ freq);
-  
+
   while (top > 255)
   {
     divider = cs2_divider[++newCS2];
@@ -263,32 +252,32 @@ void ZumoBuzzer::playFrequency(unsigned int freq, unsigned int dur,
     timeout = dur;  // duration for silent notes is exact
   else
     timeout = (unsigned int)((long)dur * freq / 1000);
-  
+
   if (volume > 15)
     volume = 15;
 
-  DISABLE_TIMER_INTERRUPT();      // disable interrupts while writing to registers 
-  
+  DISABLE_TIMER_INTERRUPT();      // disable interrupts while writing to registers
+
 #ifdef __AVR_ATmega32U4__
   TCCR4B = (TCCR4B & 0xF0) | (dividerExponent + 1); // select timer 4 clock prescaler: divider = 2^n if CS4 = n+1
-  TC4H = top >> 8;                                  // set timer 1 pwm frequency: top 2 bits...
+  TC4H = top >> 8;                                  // set timer 4 pwm frequency: top 2 bits...
   OCR4C = top;                                      // and bottom 8 bits
   unsigned int width = top >> (16 - volume);        // set duty cycle (volume):
   TC4H = width >> 8;                                // top 2 bits...
   OCR4D = width;                                    // and bottom 8 bits
   buzzerTimeout = timeout;                          // set buzzer duration
-  
-  TIFR4 |= 0xFF;  // clear any pending t4 overflow int.      
+
+  TIFR4 |= 0xFF;  // clear any pending t4 overflow int.
 #else
   TCCR2B = (TCCR2B & 0xF8) | newCS2;  // select timer 2 clock prescaler
   OCR2A = top;                        // set timer 2 pwm frequency
   OCR2B = top >> (16 - volume);       // set duty cycle (volume)
   buzzerTimeout = timeout;            // set buzzer duration
 
-  TIFR2 |= 0xFF;  // clear any pending t2 overflow int.     
+  TIFR2 |= 0xFF;  // clear any pending t2 overflow int.
 #endif
 
-  ENABLE_TIMER_INTERRUPT();  
+  ENABLE_TIMER_INTERRUPT();
 }
 
 
@@ -302,7 +291,7 @@ void ZumoBuzzer::playFrequency(unsigned int freq, unsigned int dur,
 //  greater than 1 kHz.  For example, the max duration you can use for a
 //  frequency of 10 kHz is 6553 ms.  If you use a duration longer than this,
 //  you will cause an integer overflow that produces unexpected behavior.
-void ZumoBuzzer::playNote(unsigned char note, unsigned int dur,
+void PololuBuzzer::playNote(unsigned char note, unsigned int dur,
                  unsigned char volume)
 {
   // note = key + octave * 12, where 0 <= key < 12
@@ -408,18 +397,18 @@ void ZumoBuzzer::playNote(unsigned char note, unsigned int dur,
 
 
 // Returns 1 if the buzzer is currently playing, otherwise it returns 0
-unsigned char ZumoBuzzer::isPlaying()
+unsigned char PololuBuzzer::isPlaying()
 {
   return !buzzerFinished || buzzerSequence != 0;
 }
 
 
-// Plays the specified sequence of notes.  If the play mode is 
+// Plays the specified sequence of notes.  If the play mode is
 // PLAY_AUTOMATIC, the sequence of notes will play with no further
 // action required by the user.  If the play mode is PLAY_CHECK,
 // the user will need to call playCheck() in the main loop to initiate
 // the playing of each new note in the sequence.  The play mode can
-// be changed while the sequence is playing.  
+// be changed while the sequence is playing.
 // This is modeled after the PLAY commands in GW-BASIC, with just a
 // few differences.
 //
@@ -471,38 +460,38 @@ unsigned char ZumoBuzzer::isPlaying()
 //
 // Here is an example from Bach:
 //   play("T240 L8 a gafaeada c+adaeafa <aa<bac#ada c#adaeaf4");
-void ZumoBuzzer::play(const char *notes)
+void PololuBuzzer::play(const char *notes)
 {
   DISABLE_TIMER_INTERRUPT();  // prevent this from being interrupted
   buzzerSequence = notes;
   use_program_space = 0;
   staccato_rest_duration = 0;
-  nextNote();          // this re-enables the timer1 interrupt
+  nextNote();          // this re-enables the timer interrupt
 }
 
-void ZumoBuzzer::playFromProgramSpace(const char *notes_p)
+void PololuBuzzer::playFromProgramSpace(const char *notes_p)
 {
   DISABLE_TIMER_INTERRUPT();  // prevent this from being interrupted
   buzzerSequence = notes_p;
   use_program_space = 1;
   staccato_rest_duration = 0;
-  nextNote();          // this re-enables the timer1 interrupt
+  nextNote();          // this re-enables the timer interrupt
 }
 
 
 // stop all sound playback immediately
-void ZumoBuzzer::stopPlaying()
+void PololuBuzzer::stopPlaying()
 {
   DISABLE_TIMER_INTERRUPT();          // disable interrupts
- 
+
 #ifdef __AVR_ATmega32U4__
   TCCR4B = (TCCR4B & 0xF0) | TIMER4_CLK_8;  // select IO clock
-  unsigned int top = (F_CPU/16) / 1000;     // set TOP for freq = 1 kHz: 
+  unsigned int top = (F_CPU/16) / 1000;     // set TOP for freq = 1 kHz:
   TC4H = top >> 8;                          // top 2 bits... (TC4H temporarily stores top 2 bits of 10-bit accesses)
   OCR4C = top;                              // and bottom 8 bits
   TC4H = 0;                                 // 0% duty cycle: top 2 bits...
   OCR4D = 0;                                // and bottom 8 bits
-#else 
+#else
   TCCR2B = (TCCR2B & 0xF8) | TIMER2_CLK_32; // select IO clock
   OCR2A = (F_CPU/64) / 1000;                // set TOP for freq = 1 kHz
   OCR2B = 0;                                // 0% duty cycle
@@ -564,7 +553,7 @@ static void nextNote()
   // if we are playing staccato, after every note we play a rest
   if(staccato && staccato_rest_duration)
   {
-    ZumoBuzzer::playNote(SILENT_NOTE, staccato_rest_duration, 0);
+    PololuBuzzer::playNote(SILENT_NOTE, staccato_rest_duration, 0);
     staccato_rest_duration = 0;
     return;
   }
@@ -625,8 +614,7 @@ static void nextNote()
     goto parse_character;
   case 'o':
     // set the octave permanently
-    octave = getNumber();
-    tmp_octave = octave;
+    octave = tmp_octave = getNumber();
     goto parse_character;
   case 'r':
     // Rest - the note value doesn't matter.
@@ -697,9 +685,9 @@ static void nextNote()
     staccato_rest_duration = tmp_duration / 2;
     tmp_duration -= staccato_rest_duration;
   }
-  
-  // this will re-enable the timer1 overflow interrupt
-  ZumoBuzzer::playNote(rest ? SILENT_NOTE : note, tmp_duration, volume);
+
+  // this will re-enable the timer overflow interrupt
+  PololuBuzzer::playNote(rest ? SILENT_NOTE : note, tmp_duration, volume);
 }
 
 
@@ -717,7 +705,7 @@ static void nextNote()
 // Usage: playMode(PLAY_AUTOMATIC) makes it automatic (the
 // default), playMode(PLAY_CHECK) sets it to a mode where you have
 // to call playCheck().
-void ZumoBuzzer::playMode(unsigned char mode)
+void PololuBuzzer::playMode(unsigned char mode)
 {
   play_mode_setting = mode;
 
@@ -730,11 +718,11 @@ void ZumoBuzzer::playMode(unsigned char mode)
 
 // Checks whether it is time to start another note, and starts
 // it if so.  If it is not yet time to start the next note, this method
-// returns without doing anything.  Call this as often as possible 
+// returns without doing anything.  Call this as often as possible
 // in your main loop to avoid delays between notes in the sequence.
 //
 // Returns true if it is still playing.
-unsigned char ZumoBuzzer::playCheck()
+unsigned char PololuBuzzer::playCheck()
 {
   if(buzzerFinished && buzzerSequence != 0)
     nextNote();

@@ -4,6 +4,7 @@
  * stop/reset the melody with the user pushbutton.
  */
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 #define MELODY_LENGTH 95

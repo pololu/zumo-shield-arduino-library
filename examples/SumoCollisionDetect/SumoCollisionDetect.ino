@@ -37,10 +37,8 @@
  *  code has been copied into this .ino file and does not need to be downloaded separately.
  */
 
-#include <ZumoShield.h>
-#include <avr/pgmspace.h>
 #include <Wire.h>
-#include <LSM303.h>
+#include <ZumoShield.h>
 
 // #define LOG_SERIAL // write log output to serial port
 

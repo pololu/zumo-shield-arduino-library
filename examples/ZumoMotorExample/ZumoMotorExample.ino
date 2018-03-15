@@ -7,6 +7,7 @@
  * function.
  */
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 #define LED_PIN 13

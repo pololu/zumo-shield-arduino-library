@@ -46,6 +46,7 @@
  * be close to 250, as expected.
  */
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 // *** UNCOMMENT ONE OF THE FOLLOWING PRECOMPILER DIRECTIVES ***
@@ -59,7 +60,9 @@
 ZumoBuzzer buzzer;
 Pushbutton button(ZUMO_BUTTON);
 
-#include <avr/pgmspace.h>
+// Store in program space using the PROGMEM macro.  Later we will play
+// it directly from program space, bypassing the need to load it all
+// into RAM first.
 const char rhapsody[] PROGMEM = "O6 T40 L16 d#<b<f#<d#<f#<bd#f#"
   "T80 c#<b-<f#<c#<f#<b-c#8"
   "T180 d#b<f#d#f#>bd#f#c#b-<f#c#f#>b-c#8 c>c#<c#>c#<b>c#<c#>c#c>c#<c#>c#<b>c#<c#>c#"

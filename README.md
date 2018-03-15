@@ -21,6 +21,8 @@ for more complex tasks.
 For more information about the library and examples, please see the
 [Zumo Shield user's guide](https://www.pololu.com/docs/0J57).
 
+Please note that this library does NOT work with the Zumo 32U4, which is a very different product.  The Zumo 32U4 has an integrated Arduino-compatible microcontroller.  If you have the Zumo 32U4, then you should not use this library and instead refer to the [Zumo 32U4 documentation](https://www.pololu.com/docs/0J63).
+
 ## Getting started
 
 ### Hardware
@@ -85,65 +87,32 @@ The Example Projects section of the
 [Zumo Shield user's guide](https://www.pololu.com/docs/0J57) describes
 these examples in more detail.
 
-## Library parts
+## Classes
 
-### ZumoMotors
+The main classes provided by the library are listed below:
 
-ZumoMotors provides functions for PWM-based speed (and direction)
-control of the two motors on the Zumo with the onboard DRV8835 dual
-motor driver. On Arduinos with ATmega328P, ATmega168, and ATmega32U4
-microcontrollers (which include the Leonardo, Uno, and most older
-Arduinos), the motor control functions use hardware PWM outputs from
-Timer1 to generate pulse width modulation at a 20 kHz frequency.
+* ZumoMotors
+* ZumoBuzzer
+* ZumoReflectanceSensorArray
 
-If you accidentally soldered a motor to the Zumo Shield backwards
-(opposite the orientation indicated in the assembly instructions), you
-can simply call `flipLeftMotor(true)` and/or `flipRightMotor(true)` to
-make the motors behave consistently with the directions in your code.
+## Component libraries
 
-### ZumoBuzzer
+This library also includes copies of several other Arduino libraries inside it, which are used to help implement the classes and functions above.
 
-ZumoBuzzer provides functions that allow various sounds to be played
-on the buzzer of the Zumo Shield, from simple beeps to complex tunes.
-This library is fully compatible with the OrangutanBuzzer functions in
-the [Pololu AVR C/C++ Library](https://www.pololu.com/docs/0J18), so
-any melodies written for OrangutanBuzzer functions will also work with
-ZumoBuzzer functions.
+* [LSM303](https://github.com/pololu/lsm303-arduino)
+* [L3G](https://github.com/pololu/l3g-arduino)
+* [PololuBuzzer](https://github.com/pololu/pololu-buzzer-arduino)
+* [Pushbutton](https://github.com/pololu/pushbutton-arduino)
+* [QTRSensors](https://github.com/pololu/qtr-sensors-arduino)
 
-### Pushbutton
+You can use these libraries in your sketch automatically without any extra installation steps and without needing to add any extra `#include` lines to your sketch.
 
-Pushbutton, which can also be found in the
-[pushbutton-arduino repository](https://github.com/pololu/pushbutton-arduino),
-provides a set of functions that are useful for detecting and
-debouncing pushbutton presses. While the most obvious application of
-this library is to work with the Zumo Shield's user pushbutton on
-digital pin 12, this library can be used as a general-purpose library
-for interfacing many types of buttons and switches to an Arduino, even
-without a Zumo Shield.
+You should avoid adding extra `#include` lines such as `#include <Pushbutton.h>` because then the Arduino IDE might try to use the standalone Pushbutton library (if you previously installed it), and it would conflict with the copy of the Pushbutton code included in this library.  The only `#include` lines needed to access all features of this library are:
 
-### ZumoReflectanceSensorArray
-
-ZumoReflectanceSensorArray provides a set of functions for reading
-reflectance values from a
-[Zumo Reflectance Sensor Array](https://www.pololu.com/catalog/product/1419).
-
-The ZumoReflectanceSensorArray class is a subclass of QTRSensorsRC.
-The functions provided by QTRSensorsRC can also be used on the
-ZumoReflectanceSensorArray class, and are documented in the
-[Arduino Library for the Pololu QTR Reflectance Sensors](https://www.pololu.com/docs/0J19)
-document on Pololu's website.
-
-### QTRSensors
-
-QTRSensors, which can also be found in the
-[qtr-sensors-arduino repository](https://github.com/pololu/qtr-sensors-arduino),
-is code for interfacing with
-[Pololu QTR reflectance sensors](https://www.pololu.com/catalog/category/123).
-Since the
-[Zumo Reflectance Sensor Array](https://www.pololu.com/catalog/product/1419)
-has the same interface as the QTR RC reflectance sensors, the
-ZumoReflectanceSensorArray library uses QTRSensors to read the sensor
-array.
+~~~{.cpp}
+#include <Wire.h>
+#include <ZumoShield.h>
+~~~
 
 ## Documentation
 

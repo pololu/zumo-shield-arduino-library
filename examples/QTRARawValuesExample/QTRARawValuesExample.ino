@@ -9,6 +9,7 @@
 // paper and sliding the sensor across it.  It prints the sensor values to the serial
 // monitor as numbers from 0 (maximum reflectance) to 1023 (minimum reflectance).
 
+#include <Wire.h>
 #include <ZumoShield.h>
 
 #define NUM_SENSORS             6  // number of sensors used

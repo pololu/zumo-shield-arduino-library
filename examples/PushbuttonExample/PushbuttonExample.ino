@@ -6,8 +6,8 @@
  * momentary pushbutton between digital pin 12 and ground on your Arduino.
  */
 
+#include <Wire.h>
 #include <ZumoShield.h>
-
 
 #define LED_PIN 13
 

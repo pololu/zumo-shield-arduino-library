@@ -1,3 +1,4 @@
+#include <Wire.h>
 #include <ZumoShield.h>
 
 #define THROTTLE_PIN   4 // throttle channel from RC receiver
