@@ -71,10 +71,6 @@ If this does not work, you can manually install the library:
    the folder yourself.
 4. After installing the library, restart the Arduino IDE.
 
-Some of the examples also require our
-[LSM303 library](https://github.com/pololu/lsm303-arduino) to be
-installed.
-
 ## Examples
 
 Several example sketches are available that show how to use the
@@ -126,6 +122,7 @@ functions" section above.
 * 2.0.0 (2018-03-15):
     * Forked [https://github.com/pololu/zumo-shield](https://github.com/pololu/zumo-shield)
     * Consolidated sub-libraries into one library called ZumoShield.
+    * Added LSM303 and L3G as component libraries
     * Added Travis CI testing.
     * Updated library to work with the Arduino Library Manager.
 * 1.2.3 (2013-11-27): Updated examples to work with LSM303 library version 2.0.0.
