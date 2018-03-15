@@ -21,7 +21,7 @@ for more complex tasks.
 For more information about the library and examples, please see the
 [Zumo Shield user's guide](https://www.pololu.com/docs/0J57).
 
-Please note that this library does NOT work with the Zumo 32U4, which is a very different product.  The Zumo 32U4 has an integrated Arduino-compatible microcontroller.  If you have the Zumo 32U4, then you should not use this library and instead refer to the [Zumo 32U4 documentation](https://www.pololu.com/docs/0J63).
+Please note that this library does NOT work with the Zumo 32U4 Robot, which is a very different product.  The Zumo 32U4 Robot has an integrated Arduino-compatible microcontroller.  If you have the Zumo 32U4 Robot, then you should not use this library and instead refer to the [Zumo 32U4 Robot documentation](https://www.pololu.com/docs/0J63).
 
 ## Getting started
 
