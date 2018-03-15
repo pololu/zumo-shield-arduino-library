@@ -1,7 +1,7 @@
 # Pololu Zumo Shield Arduino library
 
 Version: 2.0.0 <br>
-Release date: 2016-08-26 <br>
+Release date: 2018-03-15 <br>
 [![Build Status](https://travis-ci.org/pololu/zumo-shield-arduino-library.svg?branch=master)](https://travis-ci.org/pololu/zumo-shield-arduino-library) <br>
 [www.pololu.com](https://www.pololu.com/)
 
@@ -162,7 +162,7 @@ functions" section above.
 
 ## Version history
 
-* 2.0.0 (2016-08-26):
+* 2.0.0 (2018-03-15):
     * Forked [https://github.com/pololu/zumo-shield](https://github.com/pololu/zumo-shield)
     * Consolidated sub-libraries into one library called ZumoShield.
     * Added Travis CI testing.
