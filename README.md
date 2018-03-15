@@ -87,14 +87,6 @@ these examples in more detail.
 
 ## Library parts
 
-The following sections describe parts of the library that can be
-included in your sketch. For example, to include ZumoMotors, you would
-add this to the top of your sketch:
-
-~~~{.cpp}
-#include <ZumoMotors.h>
-~~~
-
 ### ZumoMotors
 
 ZumoMotors provides functions for PWM-based speed (and direction)
