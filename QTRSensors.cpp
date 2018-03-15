@@ -16,15 +16,15 @@
  * Written by Ben Schmidel et al., October 4, 2010.
  * Copyright (c) 2008-2012 Pololu Corporation. For more information, see
  *
- *   https://www.pololu.com
- *   https://forum.pololu.com
- *   https://www.pololu.com/docs/0J19
+ *   http://www.pololu.com
+ *   http://forum.pololu.com
+ *   http://www.pololu.com/docs/0J19
  *
  * You may freely modify and share this code, as long as you keep this
  * notice intact (including the two links above).  Licensed under the
  * Creative Commons BY-SA 3.0 license:
  *
- *   https://creativecommons.org/licenses/by-sa/3.0/
+ *   http://creativecommons.org/licenses/by-sa/3.0/
  *
  * Disclaimer: To the extent permitted by law, Pololu provides this work
  * without any warranty.  It might be defective, in which case you agree
@@ -45,6 +45,8 @@ void QTRSensors::init(unsigned char *pins, unsigned char numSensors,
     calibratedMaximumOn=0;
     calibratedMinimumOff=0;
     calibratedMaximumOff=0;
+
+    _lastValue=0; // assume initially that the line is left.
 
     if (numSensors > QTR_MAX_SENSORS)
         _numSensors = QTR_MAX_SENSORS;
@@ -317,7 +319,6 @@ int QTRSensors::readLine(unsigned int *sensor_values,
     unsigned long avg; // this is for the weighted total, which is long
                        // before division
     unsigned int sum; // this is for the denominator which is <= 64000
-    static int last_value=0; // assume initially that the line is left.
 
     readCalibrated(sensor_values, readMode);
 
@@ -344,7 +345,7 @@ int QTRSensors::readLine(unsigned int *sensor_values,
     if(!on_line)
     {
         // If it last read to the left of center, return 0.
-        if(last_value < (_numSensors-1)*1000/2)
+        if(_lastValue < (_numSensors-1)*1000/2)
             return 0;
 
         // If it last read to the right of center, return the max.
@@ -353,9 +354,9 @@ int QTRSensors::readLine(unsigned int *sensor_values,
 
     }
 
-    last_value = avg/sum;
+    _lastValue = avg/sum;
 
-    return last_value;
+    return _lastValue;
 }
 
 

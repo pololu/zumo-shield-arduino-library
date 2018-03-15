@@ -1,0 +1,5 @@
+https://github.com/pololu/lsm303-arduino 3.0.1-1-ga0841e3
+https://github.com/pololu/l3g-arduino 3.0.0-1-g6084e5a
+https://github.com/pololu/pololu-buzzer-arduino 1.0.1
+https://github.com/pololu/pushbutton-arduino 2.0.0-1-gf9069a1
+https://github.com/pololu/qtr-sensors-arduino 3.0.0-1-g260b351
