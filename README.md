@@ -15,7 +15,7 @@ interfaces with the Pololu
 [Zumo robot kit](https://www.pololu.com/catalog/product/2509), and
 [Zumo robot for Arduino](https://www.pololu.com/catalog/product/2510). It
 provides functions to help you program an Arduino-controlled Zumo
-robot, and the included example projects demonstrate how to use them
+robot, and the included example sketches demonstrate how to use them
 for more complex tasks.
 
 For more information about the library and examples, please see the
@@ -79,9 +79,9 @@ library. You can access them from the Arduino IDE by opening the
 you cannot find these examples, the library was probably installed
 incorrectly and you should retry the installation instructions above.
 
-The Example Projects section of the
-[Zumo Shield user's guide](https://www.pololu.com/docs/0J57) describes
-these examples in more detail.
+The Example sketches section of
+the [Zumo Shield user's guide](https://www.pololu.com/docs/0J57)
+describes some of these examples in more detail.
 
 ## Classes
 
