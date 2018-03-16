@@ -1,8 +1,5 @@
 /* This example uses the accelerometer in the Zumo Shield's onboard LSM303DLHC with the LSM303 Library to
- * detect contact with an adversary robot in the sumo ring. The LSM303 Library is not included in the Zumo
- * Shield Arduino Library; it can be downloaded separately from GitHub at:
- *
- *    https://github.com/pololu/LSM303
+ * detect contact with an adversary robot in the sumo ring.
  *
  * This example extends the BorderDetect example, which makes use of the onboard Zumo Reflectance Sensor Array
  * and its associated library to detect the border of the sumo ring.  It also illustrates the use of

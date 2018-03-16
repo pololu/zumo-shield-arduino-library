@@ -1,10 +1,7 @@
 /* This example uses the magnetometer in the Zumo Shield's onboard
  * LSM303DLHC to help the Zumo make precise 90-degree turns and drive
  * in squares. It uses ZumoMotors, Pushbutton, and the LSM303
- * (compass) library. The LSM303 library is not included in the Zumo
- * Shield Arduino Library; it can be downloaded from GitHub at:
- *
- *   https://github.com/pololu/LSM303
+ * (compass) library.
  *
  * This program first calibrates the compass to account for offsets in
  *  its output. Calibration is accomplished in setup().
