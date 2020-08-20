@@ -39,7 +39,7 @@
  * calibration phase so the each sensor can get a reading of how dark
  * the line is and how light the ground is (or you can program it to
  * automatically turn back and forth to pass all of the sensors over
- * the line). The **SensorCalibration** example demonstrates a
+ * the line). The **LineSensorCalibration** example demonstrates a
  * calibration routine.
  *
  * ### Reading the sensors
