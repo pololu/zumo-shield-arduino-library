@@ -5,5 +5,6 @@
 #include <Pushbutton.h>
 #include <QTRSensors.h>
 #include <ZumoBuzzer.h>
+#include <ZumoIMU.h>
 #include <ZumoMotors.h>
 #include <ZumoReflectanceSensorArray.h>
