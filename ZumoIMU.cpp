@@ -161,100 +161,8 @@ void ZumoIMU::enableDefault()
   }
 }
 
-void ZumoIMU::configureForBalancing()
+void ZumoIMU::configureForCompassHeading()
 {
-  switch (type)
-  {
-  case ZumoIMUType::LSM303D_L3GD20H:
-
-    // Accelerometer
-
-    // 0x18 = 0b00011000
-    // AFS = 0 (+/- 2 g full scale)
-    writeReg(LSM303D_ADDR, LSM303D_REG_CTRL2, 0x18);
-    if (lastError) { return; }
-
-    // Gyro
-
-    // 0xFF = 0b11111111
-    // DR = 11 (757.6 Hz ODR); BW = 11 (100 Hz bandwidth); PD = 1 (normal mode); Zen = Yen = Xen = 1 (all axes enabled)
-    writeReg(L3GD20H_ADDR, L3GD20H_REG_CTRL1, 0xFF);
-    if (lastError) { return; }
-
-    // 0x20 = 0b00100000
-    // FS = 10 (+/- 2000 dps full scale)
-    writeReg(L3GD20H_ADDR, L3GD20H_REG_CTRL4, 0x20);
-    return;
-
-  case ZumoIMUType::LSM6DS33_LIS3MDL:
-
-    // Accelerometer
-
-    // 0x3C = 0b00111100
-    // ODR = 0011 (52 Hz (high performance)); FS_XL = 11 (+/- 8 g full scale)
-    writeReg(LSM6DS33_ADDR, LSM6DS33_REG_CTRL1_XL, 0x3C);
-    if (lastError) { return; }
-
-    // Gyro
-
-    // 0x7C = 0b01111100
-    // ODR = 0111 (833 Hz (high performance)); FS_G = 11 (+/- 2000 dps full scale)
-    writeReg(LSM6DS33_ADDR, LSM6DS33_REG_CTRL2_G, 0x7C);
-    return;
-  }
-}
-
-void ZumoIMU::configureForTurnSensing()
-{
-  switch (type)
-  {
-  case ZumoIMUType::LSM303D_L3GD20H:
-
-    // Gyro
-
-    // 0xFF = 0b11111111
-    // DR = 11 (757.6 Hz ODR); BW = 11 (100 Hz bandwidth); PD = 1 (normal mode); Zen = Yen = Xen = 1 (all axes enabled)
-    writeReg(L3GD20H_ADDR, L3GD20H_REG_CTRL1, 0xFF);
-    if (lastError) { return; }
-
-    // 0x20 = 0b00100000
-    // FS = 10 (+/- 2000 dps full scale)
-    writeReg(L3GD20H_ADDR, L3GD20H_REG_CTRL4, 0x20);
-    return;
-
-  case ZumoIMUType::LSM6DS33_LIS3MDL:
-
-    // Gyro
-
-    // 0x7C = 0b01111100
-    // ODR = 0111 (833 Hz (high performance)); FS_G = 11 (+/- 2000 dps full scale)
-    writeReg(LSM6DS33_ADDR, LSM6DS33_REG_CTRL2_G, 0x7C);
-    return;
-  }
-}
-
-void ZumoIMU::configureForFaceUphill()
-{
-  switch (type)
-  {
-  case ZumoIMUType::LSM303D_L3GD20H:
-
-    // Accelerometer
-
-    // 0x37 = 0b00110111
-    // AODR = 0011 (12.5 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
-    writeReg(LSM303D_ADDR, LSM303D_REG_CTRL1, 0x37);
-    return;
-
-  case ZumoIMUType::LSM6DS33_LIS3MDL:
-
-    // Accelerometer
-
-    // 0x10 = 0b00010000
-    // ODR = 0001 (13 Hz (high performance)); FS_XL = 00 (+/- 2 g full scale)
-    writeReg(LSM6DS33_ADDR, LSM6DS33_REG_CTRL1_XL, 0x10);
-    return;
-  }
 }
 
 void ZumoIMU::writeReg(uint8_t addr, uint8_t reg, uint8_t value)
@@ -326,17 +234,18 @@ void ZumoIMU::readMag()
   switch (type)
   {
   case ZumoIMUType::LSM303DLHC:
-    // magnetometer automatically increments register address
-    readAxes16Bit(LSM303DLHC_ACC_ADDR, LSM303DLHC_REG_OUT_X_H_M, m);
-    // readAxes16Bit assumes the sensor axis outputs are little-endian and in
-    // XYZ order. However, the DLHC magnetometer outputs are big-endian and in
-    // XZY order, so we need to shuffle things around here...
-    m.x = (( m.x & 0xFF) << 8) | (( m.x >> 8) & 0xFF);
-    uint16_t oldY = m.y;
-    m.y = (( m.z & 0xFF) << 8) | (( m.z >> 8) & 0xFF);
-    m.z = ((oldY & 0xFF) << 8) | ((oldY >> 8) & 0xFF);
-    return;
-
+    {
+      // magnetometer automatically increments register address
+      readAxes16Bit(LSM303DLHC_MAG_ADDR, LSM303DLHC_REG_OUT_X_H_M, m);
+      // readAxes16Bit assumes the sensor axis outputs are little-endian and in
+      // XYZ order. However, the DLHC magnetometer outputs are big-endian and in
+      // XZY order, so we need to shuffle things around here...
+      m.x = (( m.x & 0xFF) << 8) | (( m.x >> 8) & 0xFF);
+      uint16_t oldY = m.y;
+      m.y = (( m.z & 0xFF) << 8) | (( m.z >> 8) & 0xFF);
+      m.z = ((oldY & 0xFF) << 8) | ((oldY >> 8) & 0xFF);
+      return;
+    }
   case ZumoIMUType::LSM303D_L3GD20H:
     // set MSB of register address for auto-increment
     readAxes16Bit(LSM303D_ADDR, LSM303D_REG_OUT_X_L_M | (1 << 7), m);

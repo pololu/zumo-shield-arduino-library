@@ -99,13 +99,13 @@ public:
   };
 
   /*! \brief Raw accelerometer readings. */
-  vector<int16_t> a;
+  vector<int16_t> a = {0, 0, 0};
 
   /*! \brief Raw gyro readings. */
-  vector<int16_t> g;
+  vector<int16_t> g = {0, 0, 0};
 
   /*! \brief Raw magnetometer readings. */
-  vector<int16_t> m;
+  vector<int16_t> m = {0, 0, 0};
 
   /*! \brief Returns 0 if the last I2C communication with the IMU was
    * successful, or a non-zero status code if there was an error. */
@@ -128,15 +128,7 @@ public:
    */
   void enableDefault();
 
-  /*! \brief Configures the sensors with settings optimized for turn sensing. */
-  void configureForTurnSensing();
-
-  /*! \brief Configures the sensors with settings optimized for balancing. */
-  void configureForBalancing();
-
-  /*! \brief Configures the sensors with settings optimized for the FaceUphill
-   * example program. */
-  void configureForFaceUphill();
+  void configureForCompassHeading();
 
   /*! \brief Writes an 8-bit sensor register.
    *
