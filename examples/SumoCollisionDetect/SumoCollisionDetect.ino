@@ -1,5 +1,5 @@
-/* This example uses the accelerometer in the Zumo Shield's onboard LSM303DLHC with the LSM303 Library to
- * detect contact with an adversary robot in the sumo ring.
+/* This example uses the Zumo Shield's onboard accelerometer to detect contact with an adversary robot
+ * in the sumo ring.
  *
  * This example extends the BorderDetect example, which makes use of the onboard Zumo Reflectance Sensor Array
  * and its associated library to detect the border of the sumo ring.  It also illustrates the use of
@@ -109,9 +109,9 @@ class RunningAverage
     static T zero;
 };
 
-// Accelerometer Class -- extends the LSM303 Library to support reading and averaging the x-y acceleration
-//   vectors from the onboard LSM303DLHC accelerometer/magnetometer
-class Accelerometer : public LSM303
+// Accelerometer Class -- extends the ZumoIMU class to support reading and averaging the x-y acceleration
+//   vectors from the accelerometer
+class Accelerometer : public ZumoIMU
 {
   typedef struct acc_data_xy
   {
@@ -124,7 +124,6 @@ class Accelerometer : public LSM303
   public:
     Accelerometer() : ra_x(RA_SIZE), ra_y(RA_SIZE) {};
     ~Accelerometer() {};
-    void enable(void);
     void getLogHeader(void);
     void readAcceleration(unsigned long timestamp);
     float len_xy() const;
@@ -139,7 +138,7 @@ class Accelerometer : public LSM303
     RunningAverage<int> ra_y;
 };
 
-Accelerometer lsm303;
+Accelerometer acc;
 boolean in_contact;  // set when accelerometer detects contact with opposing robot
 
 // forward declaration
@@ -147,16 +146,16 @@ void setForwardSpeed(ForwardSpeed speed);
 
 void setup()
 {
-  // Initiate the Wire library and join the I2C bus as a master
+  // Initialize the Wire library and join the I2C bus as a master
   Wire.begin();
 
-  // Initiate LSM303
-  lsm303.init();
-  lsm303.enable();
+  // Initialize accelerometer
+  acc.init();
+  acc.enableDefault();
 
 #ifdef LOG_SERIAL
   Serial.begin(9600);
-  lsm303.getLogHeader();
+  acc.getLogHeader();
 #endif
 
   randomSeed((unsigned int) millis());
@@ -210,7 +209,7 @@ void loop()
   }
 
   loop_start_time = millis();
-  lsm303.readAcceleration(loop_start_time);
+  acc.readAcceleration(loop_start_time);
   sensors.read(sensor_values);
 
   if ((_forwardSpeed == FullSpeed) && (loop_start_time - full_speed_start_time > FULL_SPEED_DURATION_LIMIT))
@@ -290,7 +289,7 @@ int getForwardSpeed()
 bool check_for_contact()
 {
   static long threshold_squared = (long) XY_ACCELERATION_THRESHOLD * (long) XY_ACCELERATION_THRESHOLD;
-  return (lsm303.ss_xy_avg() >  threshold_squared) && \
+  return (acc.ss_xy_avg() >  threshold_squared) && \
     (loop_start_time - last_turn_time > MIN_DELAY_AFTER_TURN) && \
     (loop_start_time - contact_made_time > MIN_DELAY_BETWEEN_CONTACTS);
 }
@@ -320,19 +319,6 @@ void on_contact_lost()
 }
 
 // class Accelerometer -- member function definitions
-
-// enable accelerometer only
-// to enable both accelerometer and magnetometer, call enableDefault() instead
-void Accelerometer::enable(void)
-{
-  // Enable Accelerometer
-  // 0x27 = 0b00100111
-  // Normal power mode, all axes enabled
-  writeAccReg(LSM303::CTRL_REG1_A, 0x27);
-
-  if (getDeviceType() == LSM303::device_DLHC)
-  writeAccReg(LSM303::CTRL_REG4_A, 0x08); // DLHC: enable high resolution mode
-}
 
 void Accelerometer::getLogHeader(void)
 {

@@ -44,14 +44,14 @@ void ZumoIMU::enableDefault()
 
     // Accelerometer
 
-    // 0x08 = 0b00001000
-    // FS = 00 (+/- 2 g full scale); HR = 1 (high resolution enable)
-    writeReg(LSM303DLHC_ACC_ADDR, LSM303DLHC_REG_CTRL_REG4_A, 0x08);
-    if (lastError) { return; }
-
     // 0x47 = 0b01000111
     // ODR = 0100 (50 Hz ODR); Zen = Yen = Xen = 1 (all axes enabled)
     writeReg(LSM303DLHC_ACC_ADDR, LSM303DLHC_REG_CTRL_REG1_A, 0x47);
+    if (lastError) { return; }
+
+    // 0x08 = 0b00001000
+    // FS = 00 (+/- 2 g full scale); HR = 1 (high resolution enable)
+    writeReg(LSM303DLHC_ACC_ADDR, LSM303DLHC_REG_CTRL_REG4_A, 0x08);
     if (lastError) { return; }
 
     // Magnetometer
