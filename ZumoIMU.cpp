@@ -163,6 +163,35 @@ void ZumoIMU::enableDefault()
 
 void ZumoIMU::configureForCompassHeading()
 {
+  switch (type)
+  {
+  case ZumoIMUType::LSM303DLHC:
+
+    // Magnetometer
+
+    // 0x18 = 0b00011000
+    // DO = 110 (75 Hz ODR)
+    writeReg(LSM303DLHC_MAG_ADDR, LSM303DLHC_REG_CRA_REG_M, 0x18);
+    return;
+
+  case ZumoIMUType::LSM303D_L3GD20H:
+
+    // Magnetometer
+
+    // 0x64 = 0b01110000
+    // M_RES = 11 (high resolution mode); M_ODR = 100 (50 Hz ODR)
+    writeReg(LSM303D_ADDR, LSM303D_REG_CTRL5, 0x70);
+    return;
+
+  case ZumoIMUType::LSM6DS33_LIS3MDL:
+
+    // Magnetometer
+
+    // 0x7C = 0b01111100
+    // OM = 11 (ultra-high-performance mode for X and Y); DO = 111 (80 Hz ODR)
+    writeReg(LIS3MDL_ADDR, LIS3MDL_REG_CTRL_REG1, 0x7C);
+    return;
+  }
 }
 
 void ZumoIMU::writeReg(uint8_t addr, uint8_t reg, uint8_t value)
