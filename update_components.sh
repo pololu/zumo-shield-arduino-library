@@ -43,8 +43,8 @@ copylib()
 
 library .
 
-copylib https://github.com/pololu/lsm303-arduino ../LSM303/ LSM303{.cpp,.h}
-copylib https://github.com/pololu/l3g-arduino ../L3G/ L3G{.cpp,.h}
+copylib https://github.com/pololu/lsm303-arduino ../lsm303-arduino/ LSM303{.cpp,.h}
+copylib https://github.com/pololu/l3g-arduino ../l3g-arduino/ L3G{.cpp,.h}
 copylib https://github.com/pololu/pololu-buzzer-arduino ../pololu-buzzer-arduino/PololuBuzzer PololuBuzzer{.cpp,.h}
 copylib https://github.com/pololu/pushbutton-arduino ../pushbutton-arduino/ Pushbutton{.cpp,.h}
 copylib https://github.com/pololu/qtr-sensors-arduino ../qtr-sensors-arduino/ QTRSensors{.cpp,.h}
