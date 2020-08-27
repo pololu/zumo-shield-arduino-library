@@ -1,7 +1,7 @@
 # Pololu Zumo Shield Arduino library
 
-Version: 2.0.0 <br>
-Release date: 2018-03-15 <br>
+Version: 2.1.0 <br>
+Release date: 2020-08-28 <br>
 [![Build Status](https://travis-ci.org/pololu/zumo-shield-arduino-library.svg?branch=master)](https://travis-ci.org/pololu/zumo-shield-arduino-library) <br>
 [www.pololu.com](https://www.pololu.com/)
 
@@ -87,19 +87,20 @@ describes some of these examples in more detail.
 
 The main classes provided by the library are listed below:
 
-* ZumoMotors
 * ZumoBuzzer
+* ZumoIMU
+* ZumoMotors
 * ZumoReflectanceSensorArray
 
 ## Component libraries
 
 This library also includes copies of several other Arduino libraries inside it, which are used to help implement the classes and functions above.
 
-* [LSM303](https://github.com/pololu/lsm303-arduino)
-* [L3G](https://github.com/pololu/l3g-arduino)
 * [PololuBuzzer](https://github.com/pololu/pololu-buzzer-arduino)
 * [Pushbutton](https://github.com/pololu/pushbutton-arduino)
 * [QTRSensors](https://github.com/pololu/qtr-sensors-arduino)
+
+Additionally, the [LSM303](https://github.com/pololu/lsm303-arduino) and [L3G](https://github.com/pololu/l3g-arduino) libraries are included for backward compatibility with older versions of the ZumoShield library, but we recommend using the ZumoIMU class to interface with the inertial sensors instead.
 
 You can use these libraries in your sketch automatically without any extra installation steps and without needing to add any extra `#include` lines to your sketch.
 
@@ -119,6 +120,7 @@ functions" section above.
 
 ## Version history
 
+* 2.1.0 (2020-08-28): Added a ZumoIMU class that abstracts some details of the inertial sensors and supports different IMU types. The examples have been updated to use this class, and a few new examples have been added.
 * 2.0.0 (2018-03-15):
     * Forked [https://github.com/pololu/zumo-shield](https://github.com/pololu/zumo-shield)
     * Consolidated sub-libraries into one library called ZumoShield.
