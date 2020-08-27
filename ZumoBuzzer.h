@@ -6,7 +6,7 @@
 
 #include <PololuBuzzer.h>
 
-/*! \brief Plays beeps and music on the buzzer on the Zumo 32U4.
+/*! \brief Plays beeps and music on the buzzer on the Zumo Shield.
  *
  * This class uses Timer 4 and pin 6 (PD7/OC4D) to play beeps and melodies on
  * the Zumo 32U4 buzzer.

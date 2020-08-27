@@ -117,11 +117,11 @@ public:
    */
   bool init();
 
-  /*! \brief Returns the type of the inertial sensors on the Zumo 32U4.
+  /*! \brief Returns the type of the inertial sensors on the Zumo Shield.
    *
-   * \return The sensor type as a member of the Zumo32U4IMUType enum. If the
+   * \return The sensor type as a member of the ZumoIMUType enum. If the
    * type is not known (e.g. if init() has not been called yet), this will be
-   * Zumo32U4IMUType::Unknown. */
+   * ZumoIMUType::Unknown. */
   ZumoIMUType getType() { return type; }
 
   /*! \brief Enables all of the inertial sensors with a default configuration.
