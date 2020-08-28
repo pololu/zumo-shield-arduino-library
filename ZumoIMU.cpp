@@ -269,10 +269,7 @@ void ZumoIMU::readMag()
       // readAxes16Bit assumes the sensor axis outputs are little-endian and in
       // XYZ order. However, the DLHC magnetometer outputs are big-endian and in
       // XZY order, so we need to shuffle things around here...
-      m.x = (( m.x & 0xFF) << 8) | (( m.x >> 8) & 0xFF);
-      uint16_t oldY = m.y;
-      m.y = (( m.z & 0xFF) << 8) | (( m.z >> 8) & 0xFF);
-      m.z = ((oldY & 0xFF) << 8) | ((oldY >> 8) & 0xFF);
+      m = { swapBytes(m.x), swapBytes(m.z), swapBytes(m.y) };
       return;
     }
   case ZumoIMUType::LSM303D_L3GD20H:
@@ -384,4 +381,9 @@ void ZumoIMU::readAxes16Bit(uint8_t addr, uint8_t firstReg, vector<int16_t> & v)
   v.x = (int16_t)(xh << 8 | xl);
   v.y = (int16_t)(yh << 8 | yl);
   v.z = (int16_t)(zh << 8 | zl);
+}
+
+uint16_t ZumoIMU::swapBytes(uint16_t value)
+{
+  return ((value & 0xFF) << 8) | ((value >> 8) & 0xFF);
 }

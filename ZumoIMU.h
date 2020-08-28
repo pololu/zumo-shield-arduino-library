@@ -187,4 +187,5 @@ private:
 
   int16_t testReg(uint8_t addr, uint8_t reg);
   void readAxes16Bit(uint8_t addr, uint8_t firstReg, vector<int16_t> & v);
+  uint16_t swapBytes(uint16_t value);
 };
