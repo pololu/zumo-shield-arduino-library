@@ -128,6 +128,8 @@ public:
    */
   void enableDefault();
 
+  /*! \brief Configures the sensors with settings optimized for determining a
+   * compass heading with the magnetometer. */
   void configureForCompassHeading();
 
   /*! \brief Writes an 8-bit sensor register.

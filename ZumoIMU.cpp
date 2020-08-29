@@ -308,6 +308,7 @@ bool ZumoIMU::accDataReady()
   case ZumoIMUType::LSM6DS33_LIS3MDL:
     return readReg(LSM6DS33_ADDR, LSM6DS33_REG_STATUS_REG) & 0x01;
   }
+  return false;
 }
 
 bool ZumoIMU::gyroDataReady()
@@ -319,10 +320,8 @@ bool ZumoIMU::gyroDataReady()
 
   case ZumoIMUType::LSM6DS33_LIS3MDL:
     return readReg(LSM6DS33_ADDR, LSM6DS33_REG_STATUS_REG) & 0x02;
-
-  default:
-    return false;
   }
+  return false;
 }
 
 bool ZumoIMU::magDataReady()
@@ -338,6 +337,7 @@ bool ZumoIMU::magDataReady()
   case ZumoIMUType::LSM6DS33_LIS3MDL:
     return readReg(LIS3MDL_ADDR, LIS3MDL_REG_STATUS_REG) & 0x08;
   }
+  return false;
 }
 
 int16_t ZumoIMU::testReg(uint8_t addr, uint8_t reg)
