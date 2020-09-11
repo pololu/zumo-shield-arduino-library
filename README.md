@@ -1,7 +1,7 @@
 # Pololu Zumo Shield Arduino library
 
 Version: 2.1.0 <br>
-Release date: 2020-09-03 <br>
+Release date: 2020-09-11 <br>
 [![Build Status](https://travis-ci.org/pololu/zumo-shield-arduino-library.svg?branch=master)](https://travis-ci.org/pololu/zumo-shield-arduino-library) <br>
 [www.pololu.com](https://www.pololu.com/)
 
@@ -120,7 +120,7 @@ functions" section above.
 
 ## Version history
 
-* 2.1.0 (2020-09-03): Added a ZumoIMU class that abstracts some details of the inertial sensors and supports different IMU types. The examples have been updated to use this class, and a few new examples have been added.
+* 2.1.0 (2020-09-11): Added a ZumoIMU class that abstracts some details of the inertial sensors and supports different IMU types. The examples have been updated to use this class, and a few new examples have been added.
 * 2.0.0 (2018-03-15):
     * Forked [https://github.com/pololu/zumo-shield](https://github.com/pololu/zumo-shield)
     * Consolidated sub-libraries into one library called ZumoShield.
