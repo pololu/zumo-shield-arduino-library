@@ -9,7 +9,7 @@ Release date: 2020-09-11 <br>
 This is a library for an
 [Arduino-compatible controller](https://www.pololu.com/arduino) that
 interfaces with the Pololu
-[Zumo Shield](https://www.pololu.com/catalog/product/2508),
+[Zumo Shield](https://www.pololu.com/catalog/product/2521),
 [Zumo Reflectance Sensor Array](https://www.pololu.com/catalog/product/1419),
 [Zumo robot kit](https://www.pololu.com/catalog/product/2509), and
 [Zumo robot for Arduino](https://www.pololu.com/catalog/product/2510). It
@@ -27,7 +27,7 @@ Please note that this library does NOT work with the Zumo 32U4 Robot, which is a
 ### Hardware
 
 The Zumo Shield for Arduino can be purchased on Pololu's website:
-* **[by itself](https://www.pololu.com/catalog/product/2508)**;
+* **[by itself](https://www.pololu.com/catalog/product/2521)**;
 * as part of a
   **[Zumo robot kit for Arduino](https://www.pololu.com/catalog/product/2509)**
   that also includes a
