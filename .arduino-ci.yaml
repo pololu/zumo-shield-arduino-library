@@ -1,0 +1,6 @@
+only_boards:
+  - arduino:avr:leonardo
+  - arduino:avr:uno
+  - arduino:avr:yun
+library_archives:
+  - LSM303=https://github.com/pololu/lsm303-arduino/archive/3.0.1.tar.gz=17smyhq4x3hvkinpk83c19l2dlkfv31nzaxr3yy0c5vib8jpfj8a

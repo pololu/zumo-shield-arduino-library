@@ -2,7 +2,6 @@
 
 Version: 2.1.0 <br>
 Release date: 2020-09-11 <br>
-[![Build Status](https://travis-ci.org/pololu/zumo-shield-arduino-library.svg?branch=master)](https://travis-ci.org/pololu/zumo-shield-arduino-library) <br>
 [www.pololu.com](https://www.pololu.com/)
 
 ## Summary
