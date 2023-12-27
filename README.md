@@ -59,8 +59,8 @@ the Library Manager to install this library:
 
 If this does not work, you can manually install the library:
 
-1. Download the
-   [latest release archive from GitHub](https://github.com/pololu/zumo-shield-arduino-library/releases)
+1. Download the ZIP file for the
+   [latest tag from GitHub](https://github.com/pololu/zumo-shield-arduino-library/tags)
    and decompress it.
 2. Rename the folder "zumo-shield-arduino-library-xxxx" to "ZumoShield".
 3. Drag the "ZumoShield" folder into the "libraries" directory inside your
